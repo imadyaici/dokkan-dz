@@ -1,5 +1,5 @@
 {
-  "name": "doukkan",
+  "name": "dokkan",
   "description": "Next.js + Sanity: A Powerful Website Starter with Real-time Visual Editing",
   "scripts": {
     "dev": "npm-run-all --parallel --print-label dev:*",

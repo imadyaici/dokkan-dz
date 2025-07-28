@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
-import { sanityFetch } from "@/sanity/lib/live";
-import { sitemapData } from "@/sanity/lib/queries";
 import { headers } from "next/headers";
+import { sanityFetch } from "@/sanity/lib/live";
+import { allProductsQuery } from "@/sanity/lib/queries";
 
 /**
  * This file creates a sitemap (sitemap.xml) for the application. Learn more about sitemaps in Next.js here: https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
@@ -9,8 +9,8 @@ import { headers } from "next/headers";
  */
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const allPostsAndPages = await sanityFetch({
-    query: sitemapData,
+  const allProducts = await sanityFetch({
+    query: allProductsQuery,
   });
   const headersList = await headers();
   const sitemap: MetadataRoute.Sitemap = [];
@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: "monthly",
   });
 
-  if (allPostsAndPages != null && allPostsAndPages.data.length != 0) {
+  if (allProducts != null && allProducts.data.length != 0) {
     let priority: number;
     let changeFrequency:
       | "monthly"
@@ -35,19 +35,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       | undefined;
     let url: string;
 
-    for (const p of allPostsAndPages.data) {
-      switch (p._type) {
-        case "page":
-          priority = 0.8;
-          changeFrequency = "monthly";
-          url = `${domain}/${p.slug}`;
-          break;
-        case "post":
-          priority = 0.5;
-          changeFrequency = "never";
-          url = `${domain}/posts/${p.slug}`;
-          break;
-      }
+    for (const p of allProducts.data) {
+      priority = 0.8;
+      changeFrequency = "monthly";
+      url = `${domain}/products/${p.slug}`;
+
       sitemap.push({
         lastModified: p._updatedAt || new Date(),
         priority,

@@ -3,18 +3,15 @@ import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { draftMode } from "next/headers";
-import { VisualEditing, toPlainText } from "next-sanity";
+import { toPlainText } from "next-sanity";
 import { Toaster } from "sonner";
-
-import DraftModeToast from "@/app/components/DraftModeToast";
-import Footer from "@/app/components/Footer";
-import Header from "@/app/components/Header";
 import * as demo from "@/sanity/lib/demo";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
-import { handleError } from "./client-utils";
+import { handleError } from "@/utils/client-utils";
+import { Header } from "@/ui/components/Header";
+import { Footer } from "@/ui/components/Footer";
 
 /**
  * Generate metadata for the page.
@@ -51,38 +48,23 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { isEnabled: isDraftMode } = await draftMode();
-
   return (
-    <html lang="en" className={`${inter.variable} bg-white text-black`}>
-      <body>
-        <section className="min-h-screen pt-24">
-          {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
-          <Toaster />
-          {isDraftMode && (
-            <>
-              <DraftModeToast />
-              {/*  Enable Visual Editing, only to be rendered when Draft Mode is enabled */}
-              <VisualEditing />
-            </>
-          )}
-          {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
-          <SanityLive onError={handleError} />
-          <Header />
-          <main className="">{children}</main>
+    <html lang="en" className="min-h-dvh">
+      <body className={`${inter.className} min-h-dvh`}>
+        <Toaster richColors />
+        <SanityLive onError={handleError} />
+        <Header />
+        <div className="flex min-h-[calc(100dvh-64px)] flex-col">
+          <main className="flex-1">{children}</main>
           <Footer />
-        </section>
+        </div>
         <SpeedInsights />
       </body>
     </html>
