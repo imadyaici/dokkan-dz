@@ -25,7 +25,7 @@ export function ProductElement({
             <ProductImageWrapper
               loading={loading}
               src={thumbnail.asset.url}
-              alt={thumbnail.alt ?? ""}
+              alt={product.name}
               width={512}
               height={512}
               sizes={"512px"}
