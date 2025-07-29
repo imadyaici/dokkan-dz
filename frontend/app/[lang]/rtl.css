@@ -1,0 +1,48 @@
+:root[dir="rtl"] {
+  /* Text alignment */
+  --text-align: right;
+  --float: right;
+
+  /* Margin and padding */
+  --margin-start: margin-right;
+  --margin-end: margin-left;
+  --padding-start: padding-right;
+  --padding-end: padding-left;
+}
+
+:root[dir="ltr"] {
+  /* Text alignment */
+  --text-align: left;
+  --float: left;
+
+  /* Margin and padding */
+  --margin-start: margin-left;
+  --margin-end: margin-right;
+  --padding-start: padding-left;
+  --padding-end: padding-right;
+}
+
+/* Apply RTL/LTR styles */
+[data-align-text] {
+  text-align: var(--text-align);
+}
+
+[data-float] {
+  float: var(--float);
+}
+
+[data-margin-start] {
+  margin-inline-start: var(--margin-start);
+}
+
+[data-margin-end] {
+  margin-inline-end: var(--margin-end);
+}
+
+[data-padding-start] {
+  padding-inline-start: var(--padding-start);
+}
+
+[data-padding-end] {
+  padding-inline-end: var(--padding-end);
+}

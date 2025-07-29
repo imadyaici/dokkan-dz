@@ -1,8 +1,6 @@
 import "./globals.css";
-
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Noto_Sans_Arabic } from "next/font/google";
 import { toPlainText } from "next-sanity";
 import { Toaster } from "sonner";
 import * as demo from "@/sanity/lib/demo";
@@ -17,47 +15,66 @@ import { Footer } from "@/ui/components/Footer";
  * Generate metadata for the page.
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
   const { data: settings } = await sanityFetch({
     query: settingsQuery,
     // Metadata should never contain stega
     stega: false,
   });
-  const title = settings?.title || demo.title;
-  const description = settings?.description || demo.description;
 
-  const ogImage = resolveOpenGraphImage(settings?.ogImage);
-  let metadataBase: URL | undefined = undefined;
-  try {
-    metadataBase = settings?.ogImage?.metadataBase
-      ? new URL(settings.ogImage.metadataBase)
-      : undefined;
-  } catch {
-    // ignore
-  }
+  const dictionary = (await import(`@/public/locales/${lang}/common.json`)).default;
+
+  // Use settings title if available, otherwise fall back to dictionary
+  const title = settings?.title?.[lang as keyof typeof settings.title] || 
+                dictionary.common.meta.title || 
+                demo.title;
+  
+  // Use settings tagline if available, otherwise fall back to dictionary
+  const description = settings?.tagline?.[lang as keyof typeof settings.tagline] || 
+                     dictionary.common.meta.description || 
+                     demo.description;
+
   return {
-    metadataBase,
     title: {
       template: `%s | ${title}`,
       default: title,
     },
     description: toPlainText(description),
     openGraph: {
-      images: ogImage ? [ogImage] : [],
+      images: settings?.logo ? [
+        {
+          url: settings.logo,
+          alt: settings.logoAlt || 'Logo',
+        }
+      ] : [],
     },
   };
 }
 
 const inter = Inter({ subsets: ["latin"] });
+const notoSansArabic = Noto_Sans_Arabic({ 
+  subsets: ["arabic"],
+  variable: "--font-arabic"
+});
 
 export default async function RootLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }) {
+  const { lang } = await params;
+  const isRTL = lang === 'ar';
+  
   return (
-    <html lang="en" className="min-h-dvh">
-      <body className={`${inter.className} min-h-dvh`}>
+    <html lang={lang} dir={isRTL ? 'rtl' : 'ltr'} className="min-h-dvh">
+      <body className={`${inter.className} ${notoSansArabic.variable} min-h-dvh`}>
         <Toaster richColors />
         <SanityLive onError={handleError} />
         <Header />
@@ -65,7 +82,6 @@ export default async function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
-        <SpeedInsights />
       </body>
     </html>
   );

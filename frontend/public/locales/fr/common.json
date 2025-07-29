@@ -1,0 +1,50 @@
+{
+  "common": {
+    "orderForm": {
+      "title": "Formulaire de commande",
+      "name": "Nom",
+      "address": "Adresse",
+      "phone": "Téléphone",
+      "commune": "Commune",
+      "city": "Ville",
+      "cancel": "Annuler",
+      "submit": "Soumettre",
+      "orderSubmittedSuccess": "Votre commande a été envoyée avec succès",
+      "orderSubmittedError": "Une erreur s'est produite lors de l'envoi de la commande"
+    },
+    "product": {
+      "outOfStock": "En rupture de stock",
+      "inStock": "En stock",
+      "price": "Prix",
+      "quantity": "Quantité",
+      "addToCart": "Ajouter au panier",
+      "description": "Description"
+    },
+    "navigation": {
+      "home": "Accueil",
+      "products": "Produits",
+      "about": "À propos",
+      "contact": "Contact"
+    },
+    "meta": {
+      "title": "Boutique Dokkan DZ",
+      "description": "Faites vos achats en toute confiance chez Dokkan DZ, votre marché en ligne de confiance"
+    },
+    "footer": {
+      "copyright": "Droits d'auteur",
+      "createdBy": "Créé par"
+    },
+    "messages": {
+      "error": "Une erreur s'est produite",
+      "success": "Opération réussie",
+      "loading": "Chargement..."
+    },
+    "validation": {
+      "required": "Ce champ est requis",
+      "invalidEmail": "Email invalide",
+      "invalidPhone": "Numéro de téléphone invalide",
+      "minLength": "Doit contenir au moins {length} caractères",
+      "maxLength": "Ne doit pas dépasser {length} caractères"
+    }
+  }
+}

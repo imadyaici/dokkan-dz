@@ -1,6 +1,14 @@
 import { defineQuery } from "next-sanity";
 
-export const settingsQuery = defineQuery(`*[_type == "settings"][0]`);
+export const settingsQuery = defineQuery(`
+  *[_type == "settings"][0] {
+    title,
+    tagline,
+    url,
+    "logo": logo.asset->url,
+    "logoAlt": logo.alt
+  }
+`);
 
 export const productQuery = defineQuery(`
   *[_type == "product" && slug.current == $slug][0] {

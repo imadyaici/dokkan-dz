@@ -1,9 +1,20 @@
 "use client";
+
 import { useState } from "react";
 import { OrderFormModal } from "@/ui/components/OrderFormModal";
 import { ProductQueryResult } from "@/sanity.types";
 
-export function QuantitySelector({ product }: { product: ProductQueryResult }) {
+type Props = {
+  product: ProductQueryResult;
+  translations: {
+    addToCart: string;
+    orderForm: {
+      [key: string]: string;
+    };
+  };
+};
+
+export function QuantitySelector({ product, translations }: Props) {
   const [quantity, setQuantity] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const decrement = () => setQuantity((q) => Math.max(1, q - 1));
@@ -40,13 +51,14 @@ export function QuantitySelector({ product }: { product: ProductQueryResult }) {
         onClick={handleAddClick}
         className="mt-4 w-full rounded bg-blue-600 px-4 py-2 font-semibold text-white transition hover:bg-blue-700"
       >
-        Add to Order
+        {translations.addToCart}
       </button>
       {showModal && (
         <OrderFormModal
           onClose={() => setShowModal(false)}
           product={product}
           quantity={quantity}
+          translations={translations.orderForm}
         />
       )}
     </div>

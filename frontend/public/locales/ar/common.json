@@ -1,0 +1,50 @@
+{
+  "common": {
+    "orderForm": {
+      "title": "نموذج الطلب",
+      "name": "الاسم",
+      "address": "العنوان",
+      "phone": "الهاتف",
+      "commune": "البلدية",
+      "city": "المدينة",
+      "cancel": "إلغاء",
+      "submit": "إرسال",
+      "orderSubmittedSuccess": "تم إرسال طلبك بنجاح",
+      "orderSubmittedError": "حدث خطأ أثناء إرسال الطلب"
+    },
+    "product": {
+      "outOfStock": "نفذ من المخزون",
+      "inStock": "متوفر",
+      "price": "السعر",
+      "quantity": "الكمية",
+      "addToCart": "أضف إلى السلة",
+      "description": "الوصف"
+    },
+    "navigation": {
+      "home": "الرئيسية",
+      "products": "المنتجات",
+      "about": "معلومات عنا",
+      "contact": "اتصل بنا"
+    },
+    "meta": {
+      "title": "متجر Dokkan DZ",
+      "description": "تسوق بثقة في متجر Dokkan DZ، سوقك الموثوق عبر الإنترنت"
+    },
+    "footer": {
+      "copyright": "حقوق النشر",
+      "createdBy": "تم الإنشاء بواسطة"
+    },
+    "messages": {
+      "error": "حدث خطأ",
+      "success": "تمت العملية بنجاح",
+      "loading": "جاري التحميل..."
+    },
+    "validation": {
+      "required": "هذا الحقل مطلوب",
+      "invalidEmail": "البريد الإلكتروني غير صالح",
+      "invalidPhone": "رقم الهاتف غير صالح",
+      "minLength": "يجب أن يكون الطول على الأقل {length} أحرف",
+      "maxLength": "يجب أن لا يتجاوز الطول {length} حرفاً"
+    }
+  }
+}

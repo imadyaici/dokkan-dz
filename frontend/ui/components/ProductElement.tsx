@@ -1,17 +1,24 @@
+"use client";
+
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { ProductImageWrapper } from "@/ui/atoms/ProductImageWrapper";
 import { formatMoney } from "@/utils/utils";
 import { ProductQueryResult } from "@/sanity.types";
+import { useCurrentLang } from "@/hooks/useCurrentLang";
 
 export function ProductElement({
   product,
   loading,
   priority,
-}: { product: ProductQueryResult } & {
+}: { 
+  product: ProductQueryResult;
   loading: "eager" | "lazy";
   priority?: boolean;
 }) {
+  const currentLang = useCurrentLang();
   const thumbnail = product?.images?.[0];
+  const isRTL = currentLang === 'ar';
 
   if (!product) {
     return null;
@@ -19,23 +26,27 @@ export function ProductElement({
 
   return (
     <li data-testid="ProductElement">
-      <Link href={`/products/${product.slug}`} key={product._id}>
+      <Link href={`/${currentLang}/products/${product.slug}`} key={product._id}>
         <div>
           {thumbnail?.asset?.url && (
             <ProductImageWrapper
               loading={loading}
               src={thumbnail.asset.url}
-              alt={product.name}
+              alt={product.name[currentLang as keyof typeof product.name]}
               width={512}
               height={512}
               sizes={"512px"}
               priority={priority}
             />
           )}
-          <div className="mt-2 flex justify-between">
+          <div
+            className={`mt-2 flex justify-between ${
+              isRTL ? "flex-row-reverse text-right font-arabic" : ""
+            }`}
+          >
             <div>
               <h3 className="mt-1 text-sm font-semibold text-neutral-900">
-                {product.name}
+                {product.name[currentLang as keyof typeof product.name]}
               </h3>
               <p
                 className="mt-1 text-sm text-neutral-500"
@@ -48,7 +59,7 @@ export function ProductElement({
               className="mt-1 text-sm font-medium text-neutral-900"
               data-testid="ProductElement_PriceRange"
             >
-              {formatMoney(product.price)}
+              {formatMoney(product.price, 'DZD', currentLang)}
             </p>
           </div>
         </div>

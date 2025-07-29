@@ -1,11 +1,10 @@
 "use client";
 
-import { SanityImageAsset } from "@/sanity.types";
 import Image from "next/image";
 import { useState } from "react";
 
 export function Gallery({
-  images,
+  images = [],
 }: {
   images: { asset: { _id: string; url: string | null } | null }[];
 }) {

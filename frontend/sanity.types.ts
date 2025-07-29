@@ -81,9 +81,15 @@ export type Product = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name: string;
+  name: {
+    fr: string;
+    ar: string;
+  };
   slug: Slug;
-  description?: string;
+  description: {
+    fr: string;
+    ar: string;
+  };
   price: number;
   images: Array<{
     asset?: {
@@ -106,28 +112,16 @@ export type Settings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  title: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      linkType?: "href";
-      href?: string;
-      openInNewTab?: boolean;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  ogImage?: {
+  title?: {
+    fr: string;
+    ar: string;
+  };
+  tagline?: {
+    fr?: string;
+    ar?: string;
+  };
+  url: string;
+  logo?: {
     asset?: {
       _ref: string;
       _type: "reference";
@@ -138,8 +132,51 @@ export type Settings = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    _type: "image";
+  };
+  description?: {
+    fr?: string;
+    ar?: string;
+  };
+  keywords?: {
+    fr?: Array<string>;
+    ar?: Array<string>;
+  };
+  ogImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: {
+      fr: string;
+      ar: string;
+    };
     metadataBase?: string;
     _type: "image";
+  };
+  robotsTxt?: string;
+  socialLinks?: Array<{
+    platform?: "facebook" | "twitter" | "instagram" | "linkedin" | "youtube";
+    url?: string;
+    _key: string;
+  }>;
+  contactInfo?: {
+    email?: string;
+    phone?: string;
+    address?: {
+      fr?: string;
+      ar?: string;
+    };
+    whatsapp?: string;
+    businessHours?: {
+      fr?: string;
+      ar?: string;
+    };
   };
 };
 
@@ -386,56 +423,33 @@ export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockCont
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]
+// Query: *[_type == "settings"][0] {    title,    tagline,    url,    "logo": logo.asset->url,    "logoAlt": logo.alt  }
 export type SettingsQueryResult = {
-  _id: string;
-  _type: "settings";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal";
-    listItem?: never;
-    markDefs?: Array<{
-      linkType?: "href";
-      href?: string;
-      openInNewTab?: boolean;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  ogImage?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    metadataBase?: string;
-    _type: "image";
-  };
+  title: {
+    fr: string;
+    ar: string;
+  } | null;
+  tagline: {
+    fr?: string;
+    ar?: string;
+  } | null;
+  url: string;
+  logo: string | null;
+  logoAlt: string | null;
 } | null;
 // Variable: productQuery
 // Query: *[_type == "product" && slug.current == $slug][0] {    _id,    name,    "slug": slug.current,    description,    price,    images[]{      asset->{        _id,        url,      }    },    _updatedAt,  }
 export type ProductQueryResult = {
   _id: string;
-  name: string;
+  name: {
+    fr: string;
+    ar: string;
+  };
   slug: string;
-  description: string | null;
+  description: {
+    fr: string;
+    ar: string;
+  };
   price: number;
   images: Array<{
     asset: {
@@ -449,9 +463,15 @@ export type ProductQueryResult = {
 // Query: *[_type == "product" && defined(slug.current)] | order(name asc) {    _id,    name,    "slug": slug.current,    description,    price,    images[]{      asset->{        _id,        url,      }    },    _updatedAt  }
 export type AllProductsQueryResult = Array<{
   _id: string;
-  name: string;
+  name: {
+    fr: string;
+    ar: string;
+  };
   slug: string;
-  description: string | null;
+  description: {
+    fr: string;
+    ar: string;
+  };
   price: number;
   images: Array<{
     asset: {
@@ -466,7 +486,7 @@ export type AllProductsQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"settings\"][0]": SettingsQueryResult;
+    "\n  *[_type == \"settings\"][0] {\n    title,\n    tagline,\n    url,\n    \"logo\": logo.asset->url,\n    \"logoAlt\": logo.alt\n  }\n": SettingsQueryResult;
     "\n  *[_type == \"product\" && slug.current == $slug][0] {\n    _id,\n    name,\n    \"slug\": slug.current,\n    description,\n    price,\n    images[]{\n      asset->{\n        _id,\n        url,\n      }\n    },\n    _updatedAt,\n  }\n": ProductQueryResult;
     "\n  *[_type == \"product\" && defined(slug.current)] | order(name asc) {\n    _id,\n    name,\n    \"slug\": slug.current,\n    description,\n    price,\n    images[]{\n      asset->{\n        _id,\n        url,\n      }\n    },\n    _updatedAt\n  }\n": AllProductsQueryResult;
   }

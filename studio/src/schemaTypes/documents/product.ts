@@ -10,8 +10,22 @@ export const product = defineType({
     defineField({
       name: 'name',
       title: 'Name',
-      type: 'string',
+      type: 'object',
       description: 'The name of the product',
+      fields: [
+        {
+          name: 'fr',
+          type: 'string',
+          title: 'French',
+          validation: Rule => Rule.required()
+        },
+        {
+          name: 'ar',
+          type: 'string',
+          title: 'Arabic',
+          validation: Rule => Rule.required()
+        },
+      ],
       validation: Rule => Rule.required(),
     }),
     defineField({
@@ -20,7 +34,7 @@ export const product = defineType({
       type: 'slug',
       description: 'A unique identifier for the product, used in URLs',
       options: {
-        source: 'name',
+        source: 'name.fr',
         maxLength: 96,
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
@@ -29,7 +43,22 @@ export const product = defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
+      type: 'object',
+      fields: [
+        { 
+          name: 'fr', 
+          type: 'text', 
+          title: 'French', 
+          validation: Rule => Rule.required() 
+        },
+        { 
+          name: 'ar', 
+          type: 'text', 
+          title: 'Arabic', 
+          validation: Rule => Rule.required() 
+        },
+      ],
+      validation: Rule => Rule.required(),
     }),
     defineField({
       name: 'price',
@@ -53,4 +82,15 @@ export const product = defineType({
       }],
     }),
   ],
+  preview: {
+    select: {
+      titleFr: 'name.fr',
+      titleAr: 'name.ar',
+    },
+    prepare({ titleFr, titleAr }) {
+      return {
+        title: `${titleFr} - ${titleAr}`,
+      }
+    }
+  },
 })

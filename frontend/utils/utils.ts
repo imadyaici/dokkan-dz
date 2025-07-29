@@ -2,11 +2,22 @@ export const formatDate = (date: Date | number) => {
 	return new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(date);
 };
 
-export const formatMoney = (amount: number, currency: string = 'DZD') =>
-	new Intl.NumberFormat("en-US", {
+export const formatMoney = (amount: number, currency: string = 'DZD', lang?: string) => {
+	if (lang === 'ar') {
+		// For Arabic, use دج currency symbol
+		return new Intl.NumberFormat("ar-DZ", {
+			style: "currency",
+			currency: "DZD",
+			currencyDisplay: "narrowSymbol"
+		}).format(amount).replace('DZD', 'دج');
+	}
+	
+	// For French or default, use DZD
+	return new Intl.NumberFormat("fr-DZ", {
 		style: "currency",
 		currency,
 	}).format(amount);
+};
 
 export const formatMoneyRange = (
 	range: {
