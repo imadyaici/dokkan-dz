@@ -24,18 +24,17 @@ export function LocaleSelector() {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 text-sm">
       {i18n.locales.map((locale) => (
         <button
           key={locale}
           onClick={() => changeLanguage(locale)}
-          className={`rounded px-4 py-2 ${
-            currentLang === locale
-              ? "bg-gray-800 text-white"
-              : "bg-gray-200 hover:bg-gray-300"
-          }`}
+          className={`rounded px-4 py-2 ${currentLang === locale
+            ? "bg-gray-800 text-white"
+            : "bg-gray-200 hover:bg-gray-300"
+            }`}
         >
-          {locale.toUpperCase()}
+          {locale === 'ar' ? 'عربي' : 'Français'}
         </button>
       ))}
     </div>

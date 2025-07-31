@@ -45,7 +45,7 @@ export const OrderFormModal = ({
   const isRTL = lang === 'ar';
 
   return (
-    <Dialog open={true} onClose={onClose} className={`relative z-50 ${isRTL ? 'font-arabic' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
+    <Dialog open={true} onClose={onClose} className="relative z-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <DialogBackdrop className="fixed inset-0 bg-black/30" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel className={`min-w-screen md:min-w-md max-w-lg rounded-lg bg-white p-8 shadow-lg ${isRTL ? 'text-right' : ''}`}>

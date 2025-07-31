@@ -22,7 +22,7 @@ export const AvailabilityMessage = async ({
           className="h-5 w-5 flex-shrink-0 text-neutral-50"
           aria-hidden="true"
         />
-        <p className={`${pClasses} ${isRTL ? 'text-right font-arabic' : ''}`}>
+        <p className={`${pClasses} ${isRTL ? 'text-right' : ''}`}>
           {messages.outOfStock}
         </p>
       </div>
@@ -30,7 +30,7 @@ export const AvailabilityMessage = async ({
   }
   return (
     <div className={`mt-6 flex items-center ${isRTL ? 'justify-end' : ''}`}>
-      <p className={`${pClasses} ${isRTL ? 'text-right font-arabic' : ''}`}>
+      <p className={`${pClasses} ${isRTL ? 'text-right' : ''}`}>
         {messages.inStock}
       </p>
     </div>

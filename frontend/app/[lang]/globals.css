@@ -30,14 +30,9 @@
 
   --font-display: "Inter", sans-serif;
   --font-sans: "Inter", sans-serif;
-  --font-arabic: var(--font-arabic), "Noto Sans Arabic", sans-serif;
+  --font-arabic: "Noto Sans Arabic", sans-serif;
 
   --default-transition-duration: 250ms;
-}
-
-/* Arabic text styling */
-.font-arabic {
-  font-family: var(--font-arabic);
 }
 
 /* Override RTL behavior for specific components */
@@ -65,5 +60,6 @@
 
 /* Preserve our custom layout order */
 [dir="rtl"] .grid {
-  direction: ltr; /* Keep grid direction LTR for our custom ordering */
+  direction: ltr;
+  /* Keep grid direction LTR for our custom ordering */
 }

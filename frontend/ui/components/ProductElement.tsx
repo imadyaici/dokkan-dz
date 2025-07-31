@@ -11,7 +11,7 @@ export function ProductElement({
   product,
   loading,
   priority,
-}: { 
+}: {
   product: ProductQueryResult;
   loading: "eager" | "lazy";
   priority?: boolean;
@@ -27,7 +27,7 @@ export function ProductElement({
   return (
     <li data-testid="ProductElement">
       <Link href={`/${currentLang}/products/${product.slug}`} key={product._id}>
-        <div>
+        <div className="hover:border border-neutral-300 transition-border rounded-md p-2">
           {thumbnail?.asset?.url && (
             <ProductImageWrapper
               loading={loading}
@@ -40,12 +40,11 @@ export function ProductElement({
             />
           )}
           <div
-            className={`mt-2 flex justify-between ${
-              isRTL ? "flex-row-reverse text-right font-arabic" : ""
-            }`}
+            className={`mt-2 flex justify-between ${isRTL ? "flex-row-reverse text-right" : ""
+              }`}
           >
             <div>
-              <h3 className="mt-1 text-sm font-semibold text-neutral-900">
+              <h3 className="mt-1 font-semibold text-neutral-900">
                 {product.name[currentLang as keyof typeof product.name]}
               </h3>
               <p
@@ -56,7 +55,7 @@ export function ProductElement({
               </p>
             </div>
             <p
-              className="mt-1 text-sm font-medium text-neutral-900"
+              className="mt-1 font-medium text-neutral-900"
               data-testid="ProductElement_PriceRange"
             >
               {formatMoney(product.price, 'DZD', currentLang)}

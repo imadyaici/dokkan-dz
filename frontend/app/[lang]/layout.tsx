@@ -1,9 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Noto_Sans_Arabic } from "next/font/google";
-import { toPlainText } from "next-sanity";
 import { Toaster } from "sonner";
-import * as demo from "@/sanity/lib/demo";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { resolveOpenGraphImage } from "@/sanity/lib/utils";
@@ -27,37 +25,52 @@ export async function generateMetadata({
     stega: false,
   });
 
-  const dictionary = (await import(`@/public/locales/${lang}/common.json`)).default;
-
-  // Use settings title if available, otherwise fall back to dictionary
-  const title = settings?.title?.[lang as keyof typeof settings.title] || 
-                dictionary.common.meta.title || 
-                demo.title;
-  
-  // Use settings tagline if available, otherwise fall back to dictionary
-  const description = settings?.tagline?.[lang as keyof typeof settings.tagline] || 
-                     dictionary.common.meta.description || 
-                     demo.description;
+  const title = settings?.title?.[lang as keyof typeof settings.title] || ''
+  const description = settings?.description?.[lang as keyof typeof settings.description] || ''
+  const keywords = settings?.keywords?.[lang as keyof typeof settings.keywords] || [];
+  const ogImage = resolveOpenGraphImage(settings?.ogImage);
+  const metadataBase = settings?.ogImage?.metadataBase ? new URL(settings.ogImage.metadataBase) : undefined;
 
   return {
+    metadataBase,
     title: {
       template: `%s | ${title}`,
       default: title,
     },
-    description: toPlainText(description),
+    description: description,
+    keywords: keywords.join(', '),
+    robots: settings?.robotsTxt || 'index, follow',
     openGraph: {
-      images: settings?.logo ? [
+      title,
+      description: description,
+      images: ogImage ? [ogImage] : settings?.logo ? [
         {
           url: settings.logo,
           alt: settings.logoAlt || 'Logo',
         }
       ] : [],
+      locale: lang,
+      type: 'website',
+      siteName: title,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: description,
+      images: ogImage ? [ogImage.url] : settings?.logo ? [settings.logo] : [],
+    },
+    alternates: {
+      canonical: settings?.url,
+      languages: {
+        'fr': '/fr',
+        'ar': '/ar',
+      },
     },
   };
 }
 
 const inter = Inter({ subsets: ["latin"] });
-const notoSansArabic = Noto_Sans_Arabic({ 
+const notoSansArabic = Noto_Sans_Arabic({
   subsets: ["arabic"],
   variable: "--font-arabic"
 });
@@ -71,13 +84,13 @@ export default async function RootLayout({
 }) {
   const { lang } = await params;
   const isRTL = lang === 'ar';
-  
+
   return (
     <html lang={lang} dir={isRTL ? 'rtl' : 'ltr'} className="min-h-dvh">
-      <body className={`${inter.className} ${notoSansArabic.variable} min-h-dvh`}>
+      <body className={`${isRTL ? notoSansArabic.className : inter.className} ${notoSansArabic.variable} min-h-dvh`}>
         <Toaster richColors />
         <SanityLive onError={handleError} />
-        <Header />
+        <Header lang={lang} />
         <div className="flex min-h-[calc(100dvh-64px)] flex-col">
           <main className="flex-1">{children}</main>
           <Footer />

@@ -2,9 +2,9 @@ import { Logo } from "./Logo";
 import { LocaleSelector } from "./LocaleSelector";
 import { settingsQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/live";
-// import { Nav } from "./nav/Nav";
+import { Nav } from "./nav/Nav";
 
-export async function Header() {
+export async function Header(props: { lang: string }) {
   const { data: settings } = await sanityFetch({
     query: settingsQuery,
   });
@@ -14,6 +14,7 @@ export async function Header() {
       <div className="mx-auto max-w-7xl px-3 sm:px-8">
         <div className="flex h-16 justify-between items-center gap-4 md:gap-8">
           <Logo logo={settings?.logo || "/images/dokkan-logo.png"} alt={settings?.logoAlt || "Dokkan Dz Logo"} />
+          <Nav lang={props.lang} />
           <LocaleSelector />
         </div>
       </div>

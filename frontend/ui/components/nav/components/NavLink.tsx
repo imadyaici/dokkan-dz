@@ -2,8 +2,8 @@
 
 import clsx from "clsx";
 import { type ReactElement } from "react";
-import useSelectedPathname from "@/hooks/useSelectedPathname";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function NavLink({
   href,
@@ -12,7 +12,7 @@ export function NavLink({
   href: string;
   children: ReactElement | string;
 }) {
-  const pathname = useSelectedPathname();
+  const pathname = usePathname()
   const isActive = pathname === href;
 
   return (
@@ -23,7 +23,7 @@ export function NavLink({
           isActive
             ? "border-neutral-900 text-neutral-900"
             : "border-transparent text-neutral-500",
-          "inline-flex items-center border-b-2 pt-px text-sm font-medium hover:text-neutral-700"
+          "inline-flex items-center border-b-2 pt-px font-medium hover:text-neutral-700"
         )}
       >
         {children}

@@ -117,7 +117,7 @@ export default async function Page(props: {
         <div className={`md:col-span-1 lg:col-span-5 ${isRTL ? 'order-2' : 'order-1'}`}>
           <Gallery images={product.images || []} />
         </div>
-        <div className={`flex flex-col pt-6 sm:col-span-1 sm:px-6 sm:pt-0 lg:col-span-3 lg:pt-16 ${isRTL ? 'text-right font-arabic order-1' : 'order-2'}`}>
+        <div className={`flex flex-col pt-6 sm:col-span-1 sm:px-6 sm:pt-0 lg:col-span-3 lg:pt-16 ${isRTL ? 'text-right order-1' : 'order-2'}`}>
           <div>
             <h1 className="mb-4 flex-auto text-3xl font-medium tracking-tight text-neutral-900">
               {product?.name[lang as keyof typeof product.name]}

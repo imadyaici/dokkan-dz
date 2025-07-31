@@ -6,7 +6,20 @@ export const settingsQuery = defineQuery(`
     tagline,
     url,
     "logo": logo.asset->url,
-    "logoAlt": logo.alt
+    "logoAlt": logo.alt,
+    description,
+    keywords,
+    ogImage {
+      asset->,
+      alt,
+      metadataBase
+    },
+    robotsTxt,
+    socialLinks[] {
+      platform,
+      url
+    },
+    contactInfo
   }
 `);
 
