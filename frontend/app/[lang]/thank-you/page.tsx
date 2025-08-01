@@ -1,0 +1,79 @@
+import Link from "next/link";
+import { CheckCircleIcon } from "lucide-react";
+
+export default async function ThankYouPage({
+  params,
+}: {
+  params: Promise<{ lang: string }>;
+}) {
+  const { lang } = await params;
+  const dictionary = (await import(`@/public/locales/${lang}/common.json`))
+    .default;
+  const isRTL = lang === "ar";
+
+  // Generate a dummy order number for now
+  const orderNumber = `DKN-${Date.now().toString().slice(-6)}`;
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8">
+        <div className={`text-center ${isRTL ? "text-right" : ""}`}>
+          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+            <CheckCircleIcon className="h-6 w-6 text-green-600" />
+          </div>
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
+            {dictionary.common.thankYou.title}
+          </h2>
+          <p className="mt-2 text-sm text-gray-600">
+            {dictionary.common.thankYou.subtitle}
+          </p>
+        </div>
+
+        <div className="bg-white shadow rounded-lg p-6">
+          <div className={`space-y-4 ${isRTL ? "text-right" : ""}`}>
+            <div>
+              <p className="text-sm font-medium text-gray-700">
+                {dictionary.common.thankYou.orderNumber}:
+              </p>
+              <p className="text-lg font-semibold text-gray-900">
+                {orderNumber}
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm text-gray-600">
+                {dictionary.common.thankYou.message}
+              </p>
+            </div>
+
+            <div className="border-t pt-4">
+              <h3 className="text-sm font-medium text-gray-700 mb-2">
+                {dictionary.common.product.description}:
+              </h3>
+              <ul className="text-sm text-gray-600 space-y-1">
+                <li>• {dictionary.common.messages.success}</li>
+                <li>• {dictionary.common.orderForm.orderSubmittedSuccess}</li>
+                <li>• {dictionary.common.product.inStock}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className={`flex gap-4 ${isRTL ? "flex-row-reverse" : ""}`}>
+          <Link
+            href={`/${lang}`}
+            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md text-center hover:bg-blue-700 transition-colors"
+          >
+            {dictionary.common.thankYou.backToHome}
+          </Link>
+          <Link
+            href={`/${lang}/products`}
+            className="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-md text-center hover:bg-gray-300 transition-colors"
+          >
+            {dictionary.common.thankYou.continueShopping}
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
