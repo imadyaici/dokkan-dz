@@ -29,12 +29,14 @@ export function LocaleSelector() {
         <button
           key={locale}
           onClick={() => changeLanguage(locale)}
-          className={`rounded px-4 py-2 ${currentLang === locale
-            ? "bg-gray-800 text-white"
-            : "bg-gray-200 hover:bg-gray-300"
-            }`}
+          className={`rounded px-4 py-2 ${
+            currentLang === locale
+              ? "bg-gray-800 text-white"
+              : "bg-gray-200 hover:bg-gray-300"
+          } ${locale === "ar" ? "font-arabic" : ""}`}
+          style={locale === "ar" ? { fontFamily: "var(--font-arabic)" } : {}}
         >
-          {locale === 'ar' ? 'عربي' : 'Français'}
+          {locale === "ar" ? "عربي" : "Français"}
         </button>
       ))}
     </div>

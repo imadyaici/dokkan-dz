@@ -25,8 +25,8 @@ export async function generateMetadata({
     stega: false,
   });
 
-  const title = settings?.title?.[lang as keyof typeof settings.title] || ''
-  const description = settings?.description?.[lang as keyof typeof settings.description] || ''
+  const title = settings?.title?.[lang as keyof typeof settings.title] || '';
+  const description = settings?.description?.[lang as keyof typeof settings.description] || '';
   const keywords = settings?.keywords?.[lang as keyof typeof settings.keywords] || [];
   const ogImage = resolveOpenGraphImage(settings?.ogImage);
   const metadataBase = settings?.ogImage?.metadataBase ? new URL(settings.ogImage.metadataBase) : undefined;
@@ -69,10 +69,10 @@ export async function generateMetadata({
   };
 }
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 const notoSansArabic = Noto_Sans_Arabic({
-  subsets: ["arabic"],
-  variable: "--font-arabic"
+  subsets: ['arabic'],
+  variable: '--font-arabic',
 });
 
 export default async function RootLayout({
@@ -93,7 +93,7 @@ export default async function RootLayout({
         <Header lang={lang} />
         <div className="flex min-h-[calc(100dvh-64px)] flex-col">
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer lang={lang} />
         </div>
       </body>
     </html>
