@@ -8,6 +8,7 @@ import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 import { handleError } from "@/utils/client-utils";
 import { Header } from "@/ui/components/Header";
 import { Footer } from "@/ui/components/Footer";
+import { FacebookPixel } from "@/ui/components/FacebookPixel";
 
 /**
  * Generate metadata for the page.
@@ -88,6 +89,7 @@ export default async function RootLayout({
   return (
     <html lang={lang} dir={isRTL ? 'rtl' : 'ltr'} className="min-h-dvh">
       <body className={`${isRTL ? notoSansArabic.className : inter.className} ${notoSansArabic.variable} min-h-dvh`}>
+        <FacebookPixel />
         <Toaster richColors />
         <SanityLive onError={handleError} />
         <Header lang={lang} />
