@@ -13,8 +13,6 @@ export async function POST(req: Request) {
   const MAYSTRO_API_URL = process.env.MAYSTRO_API_URL as string;
   const MAYSTRO_API_SECRET = process.env.MAYSTRO_API_SECRET;
 
-  console.log("Received order:", body);
-
   const payload = {
     customer_name: body.name,
     customer_phone: body.phone,
@@ -25,8 +23,8 @@ export async function POST(req: Request) {
     commune: body.city,
     details: [
       {
-        product: body.product._id,
-        description: body.product.name,
+        product: body.product.name.fr,
+        description: body.product.description.fr,
         quantity: body.quantity,
       }
     ]
@@ -36,9 +34,9 @@ export async function POST(req: Request) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Token ${MAYSTRO_API_SECRET}`,
+      "Authorization": `token ${MAYSTRO_API_SECRET}`,
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify(payload),
   });
 
   const data = await response.json();

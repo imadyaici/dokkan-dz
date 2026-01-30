@@ -3,16 +3,16 @@ import { CheckCircleIcon } from "lucide-react";
 
 export default async function ThankYouPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ lang: string }>;
+  searchParams: Promise<{ tracking?: string }>;
 }) {
   const { lang } = await params;
+  const { tracking } = await searchParams;
   const dictionary = (await import(`@/public/locales/${lang}/common.json`))
     .default;
   const isRTL = lang === "ar";
-
-  // Generate a dummy order number for now
-  const orderNumber = `DKN-${Date.now().toString().slice(-6)}`;
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -36,7 +36,7 @@ export default async function ThankYouPage({
                 {dictionary.common.thankYou.orderNumber}:
               </p>
               <p className="text-lg font-semibold text-gray-900">
-                {orderNumber}
+                {tracking}
               </p>
             </div>
 
