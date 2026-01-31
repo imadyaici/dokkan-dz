@@ -37,7 +37,8 @@
     "messages": {
       "error": "حدث خطأ",
       "success": "تمت العملية بنجاح",
-      "loading": "جاري التحميل..."
+      "loading": "جاري التحميل...",
+      "selectWilayaFirst": "اختر الولاية أولاً"
     },
     "validation": {
       "required": "هذا الحقل مطلوب",

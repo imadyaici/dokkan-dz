@@ -55,13 +55,13 @@ export async function generateMetadata(
     },
     openGraph: product.images && product.images.length > 0
       ? {
-          images: [
-            {
-              url: product.images[0].asset?.url || '',
-              alt: productName,
-            },
-          ],
-        }
+        images: [
+          {
+            url: product.images[0].asset?.url || '',
+            alt: productName,
+          },
+        ],
+      }
       : null,
   };
 }
@@ -95,7 +95,7 @@ export default async function Page(props: {
 }) {
   const { slug, lang } = await props.params;
   const dictionary = (await import(`@/public/locales/${lang}/common.json`)).default;
-  
+
   const { data: product } = await sanityFetch({
     query: productQuery,
     params: {
@@ -130,15 +130,16 @@ export default async function Page(props: {
                 {price}
               </span>
             </div>
-            <AvailabilityMessage 
-              isAvailable={true} 
+            <AvailabilityMessage
+              isAvailable={true}
               lang={lang}
             />
             <QuantitySelector
               product={product}
               translations={{
                 addToCart: dictionary.common.product.addToCart,
-                orderForm: dictionary.common.orderForm
+                orderForm: dictionary.common.orderForm,
+                messages: dictionary.common.messages,
               }}
             />
             {description && (

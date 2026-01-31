@@ -37,7 +37,8 @@
     "messages": {
       "error": "Une erreur s'est produite",
       "success": "Opération réussie",
-      "loading": "Chargement..."
+      "loading": "Chargement...",
+      "selectWilayaFirst": "Sélectionnez une wilaya d'abord"
     },
     "validation": {
       "required": "Ce champ est requis",

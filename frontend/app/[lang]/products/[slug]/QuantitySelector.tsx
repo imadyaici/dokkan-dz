@@ -11,6 +11,11 @@ type Props = {
     orderForm: {
       [key: string]: string;
     };
+    messages: {
+      loading: string;
+      selectWilayaFirst: string;
+      [key: string]: string;
+    };
   };
 };
 
@@ -59,6 +64,7 @@ export function QuantitySelector({ product, translations }: Props) {
           product={product}
           quantity={quantity}
           translations={translations.orderForm}
+          messages={translations.messages}
         />
       )}
     </div>

@@ -10,7 +10,7 @@ enum DeliveryType {
 export async function POST(req: Request) {
   const body = await req.json();
 
-  const MAYSTRO_API_URL = process.env.MAYSTRO_API_URL as string;
+  const MAYSTRO_API_URL = `${process.env.NEXT_PUBLIC_MAYSTRO_BASE_URL}/orders/`;
   const MAYSTRO_API_SECRET = process.env.MAYSTRO_API_SECRET;
 
   const payload = {
