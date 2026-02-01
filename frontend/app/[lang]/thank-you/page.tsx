@@ -6,13 +6,14 @@ export default async function ThankYouPage({
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ tracking?: string }>;
+  searchParams: Promise<{ tracking?: string; deliveryPrice?: string }>;
 }) {
   const { lang } = await params;
-  const { tracking } = await searchParams;
+  const { tracking, deliveryPrice } = await searchParams;
   const dictionary = (await import(`@/public/locales/${lang}/common.json`))
     .default;
   const isRTL = lang === "ar";
+  const { formatMoney } = await import("@/utils/utils");
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -31,14 +32,25 @@ export default async function ThankYouPage({
 
         <div className="bg-white shadow rounded-lg p-6">
           <div className={`space-y-4 ${isRTL ? "text-right" : ""}`}>
-            <div>
+            <div className="flex justify-between items-center border-b pb-2">
               <p className="text-sm font-medium text-gray-700">
                 {dictionary.common.thankYou.orderNumber}:
               </p>
-              <p className="text-lg font-semibold text-gray-900">
+              <p className="text-lg font-semibold text-gray-900 font-mono">
                 {tracking}
               </p>
             </div>
+
+            {deliveryPrice && (
+              <div className="flex justify-between items-center border-b pb-2">
+                <p className="text-sm font-medium text-gray-700">
+                  {dictionary.common.thankYou.deliveryPrice}:
+                </p>
+                <p className="text-lg font-semibold text-blue-600">
+                  {formatMoney(Number(deliveryPrice), "DZD", lang)}
+                </p>
+              </div>
+            )}
 
             <div>
               <p className="text-sm text-gray-600">

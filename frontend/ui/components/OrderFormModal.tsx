@@ -160,7 +160,7 @@ export const OrderFormModal = ({
                 });
                 onClose();
                 router.push(
-                  `/${lang}/thank-you${data.tracking ? `?tracking=${data.tracking}` : ""
+                  `/${lang}/thank-you?${data.tracking ? `tracking=${data.tracking}` : ""}${data.delivery_price ? `&deliveryPrice=${data.delivery_price}` : ""
                   }`,
                 );
               } else {

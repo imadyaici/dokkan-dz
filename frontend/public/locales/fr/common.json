@@ -52,6 +52,7 @@
       "subtitle": "Votre commande a été reçue avec succès",
       "message": "Nous vous contacterons bientôt pour confirmer les détails de votre commande et organiser la livraison.",
       "orderNumber": "Numéro de commande",
+      "deliveryPrice": "Prix de livraison",
       "backToHome": "Retour à l'accueil",
       "continueShopping": "Continuer vos achats"
     }
