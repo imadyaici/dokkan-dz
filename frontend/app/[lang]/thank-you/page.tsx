@@ -6,14 +6,21 @@ export default async function ThankYouPage({
   searchParams,
 }: {
   params: Promise<{ lang: string }>;
-  searchParams: Promise<{ tracking?: string; deliveryPrice?: string }>;
+  searchParams: Promise<{
+    tracking?: string;
+    deliveryPrice?: string;
+    productPrice?: string;
+    deliveryOption?: string;
+  }>;
 }) {
   const { lang } = await params;
-  const { tracking, deliveryPrice } = await searchParams;
+  const { tracking, deliveryPrice, productPrice, deliveryOption } = await searchParams;
   const dictionary = (await import(`@/public/locales/${lang}/common.json`))
     .default;
   const isRTL = lang === "ar";
   const { formatMoney } = await import("@/utils/utils");
+
+  const totalPrice = Number(productPrice || 0) + Number(deliveryPrice || 0);
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -41,13 +48,34 @@ export default async function ThankYouPage({
               </p>
             </div>
 
-            {deliveryPrice && (
-              <div className="flex justify-between items-center border-b pb-2">
-                <p className="text-sm font-medium text-gray-700">
-                  {dictionary.common.thankYou.deliveryPrice}:
+            <div className="space-y-2 py-2 border-b">
+              {productPrice && (
+                <div className="flex justify-between items-center text-sm">
+                  <p className="text-gray-600">{dictionary.common.product.price}:</p>
+                  <p className="font-medium text-gray-900">
+                    {formatMoney(Number(productPrice), "DZD", lang)}
+                  </p>
+                </div>
+              )}
+              {deliveryPrice && (
+                <div className="flex justify-between items-center text-sm">
+                  <p className="text-gray-600">
+                    {dictionary.common.thankYou.deliveryPrice} ({deliveryOption ? (dictionary.common.orderForm[deliveryOption] || deliveryOption) : ""}):
+                  </p>
+                  <p className="font-medium text-gray-900">
+                    {formatMoney(Number(deliveryPrice), "DZD", lang)}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {totalPrice > 0 && (
+              <div className="flex justify-between items-center py-2">
+                <p className="text-base font-bold text-gray-900">
+                  {dictionary.common.thankYou.totalPrice || "Total"}:
                 </p>
-                <p className="text-lg font-semibold text-blue-600">
-                  {formatMoney(Number(deliveryPrice), "DZD", lang)}
+                <p className="text-xl font-bold text-blue-600">
+                  {formatMoney(totalPrice, "DZD", lang)}
                 </p>
               </div>
             )}

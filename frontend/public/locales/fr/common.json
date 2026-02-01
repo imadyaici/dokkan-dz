@@ -9,6 +9,11 @@
       "city": "Ville",
       "cancel": "Annuler",
       "submit": "Soumettre",
+      "deliveryOption": "Option de livraison",
+      "selectOption": "Sélectionnez une option",
+      "home": "À domicile",
+      "stopdesk": "Stop-Desk",
+      "pickup": "Point de retrait",
       "orderSubmittedSuccess": "Votre commande a été envoyée avec succès",
       "orderSubmittedError": "Une erreur s'est produite lors de l'envoi de la commande"
     },
@@ -38,7 +43,8 @@
       "error": "Une erreur s'est produite",
       "success": "Opération réussie",
       "loading": "Chargement...",
-      "selectWilayaFirst": "Sélectionnez une wilaya d'abord"
+      "selectWilayaFirst": "Sélectionnez une wilaya d'abord",
+      "selectCommuneFirst": "Sélectionnez une commune d'abord"
     },
     "validation": {
       "required": "Ce champ est requis",
@@ -53,6 +59,7 @@
       "message": "Nous vous contacterons bientôt pour confirmer les détails de votre commande et organiser la livraison.",
       "orderNumber": "Numéro de commande",
       "deliveryPrice": "Prix de livraison",
+      "totalPrice": "Total",
       "backToHome": "Retour à l'accueil",
       "continueShopping": "Continuer vos achats"
     }

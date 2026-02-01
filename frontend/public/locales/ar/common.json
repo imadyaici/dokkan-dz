@@ -9,6 +9,11 @@
       "city": "المدينة",
       "cancel": "إلغاء",
       "submit": "إرسال",
+      "deliveryOption": "خيار التوصيل",
+      "selectOption": "اختر خياراً",
+      "home": "توصيل للمنزل",
+      "stopdesk": "توصيل للمكتب",
+      "pickup": "نقطة استلام",
       "orderSubmittedSuccess": "تم إرسال طلبك بنجاح",
       "orderSubmittedError": "حدث خطأ أثناء إرسال الطلب"
     },
@@ -38,7 +43,8 @@
       "error": "حدث خطأ",
       "success": "تمت العملية بنجاح",
       "loading": "جاري التحميل...",
-      "selectWilayaFirst": "اختر الولاية أولاً"
+      "selectWilayaFirst": "اختر الولاية أولاً",
+      "selectCommuneFirst": "اختر البلدية أولاً"
     },
     "validation": {
       "required": "هذا الحقل مطلوب",
@@ -53,6 +59,7 @@
       "message": "سنتواصل معك قريباً لتأكيد تفاصيل طلبك وترتيب التسليم.",
       "orderNumber": "رقم الطلب",
       "deliveryPrice": "سعر التوصيل",
+      "totalPrice": "المجموع",
       "backToHome": "العودة للرئيسية",
       "continueShopping": "متابعة التسوق"
     }

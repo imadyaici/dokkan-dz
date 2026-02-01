@@ -19,7 +19,7 @@ export async function POST(req: Request) {
     destination_text: body.address,
     external_id: body.product._id,
     product_price: body.product.price * body.quantity,
-    delivery_type: DeliveryType.HOME,
+    delivery_type: body.delivery_type === "stopdesk" ? DeliveryType.STOP_DESK : body.delivery_type === "pickup" ? DeliveryType.PICKUP_POINT : DeliveryType.HOME,
     commune: body.city,
     details: [
       {

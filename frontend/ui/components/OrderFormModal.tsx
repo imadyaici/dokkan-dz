@@ -63,11 +63,20 @@ export const OrderFormModal = ({
     name: string; // Commune name
   }
 
+  interface DeliveryOption {
+    type: string;
+    name: string;
+    price: number;
+  }
+
   const [wilayas, setWilayas] = useState<Wilaya[]>([]);
   const [communes, setCommunes] = useState<Commune[]>([]);
   const [loadingWilayas, setLoadingWilayas] = useState(false);
   const [loadingCommunes, setLoadingCommunes] = useState(false);
+  const [deliveryOptions, setDeliveryOptions] = useState<DeliveryOption[]>([]);
+  const [loadingDeliveryOptions, setLoadingDeliveryOptions] = useState(false);
   const communesCache = useRef<Record<number, Commune[]>>({});
+  const deliveryOptionsCache = useRef<Record<number, DeliveryOption[]>>({});
 
   const BASE_URL = process.env.NEXT_PUBLIC_MAYSTRO_BASE_URL;
 
@@ -121,6 +130,31 @@ export const OrderFormModal = ({
     }
   };
 
+  const handleCommuneChange = async (communeId: number, setFieldValue: any) => {
+    setFieldValue("city", communeId);
+    setFieldValue("delivery_type", ""); // Reset delivery type when commune changes
+
+    if (deliveryOptionsCache.current[communeId]) {
+      setDeliveryOptions(deliveryOptionsCache.current[communeId]);
+      return;
+    }
+
+    if (!BASE_URL) return;
+    setLoadingDeliveryOptions(true);
+    try {
+      const res = await fetch(`/api/delivery-options?commune=${communeId}`);
+      if (res.ok) {
+        const data = await res.json();
+        deliveryOptionsCache.current[communeId] = data;
+        setDeliveryOptions(data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch delivery options:", error);
+    } finally {
+      setLoadingDeliveryOptions(false);
+    }
+  };
+
   return (
     <Dialog
       open={true}
@@ -137,7 +171,7 @@ export const OrderFormModal = ({
             {translations.title}
           </DialogTitle>
           <Formik
-            initialValues={{ name: "", address: "", phone: "", wilaya: "", city: "" }}
+            initialValues={{ name: "", address: "", phone: "", wilaya: "", city: "", delivery_type: "" }}
             validate={(values) => {
               const errors: Record<string, string> = {};
               const phoneError = isValidPhoneNumber(values.phone);
@@ -155,15 +189,25 @@ export const OrderFormModal = ({
 
               if (res.ok) {
                 const data = await res.json();
-                toast.success(translations.orderSubmittedSuccess, {
-                  position: "top-center",
-                });
-                onClose();
-                router.push(
-                  `/${lang}/thank-you?${data.tracking ? `tracking=${data.tracking}` : ""}${data.delivery_price ? `&deliveryPrice=${data.delivery_price}` : ""
-                  }`,
-                );
-              } else {
+                if (data.success) {
+                  toast.success(translations.orderSubmittedSuccess, {
+                    position: "top-center",
+                  });
+                  const productPrice = (product?.price || 0) * quantity;
+                  const selectedOption = deliveryOptions.find(o => o.type === values.delivery_type);
+                  const deliveryPrice = selectedOption?.price || 0;
+                  const totalPrice = productPrice + deliveryPrice;
+
+                  router.push(
+                    `/${lang}/thank-you?${data.tracking ? `tracking=${data.tracking}` : ""
+                    }&deliveryPrice=${deliveryPrice}&productPrice=${productPrice}&deliveryOption=${values.delivery_type}`
+                  );
+                  onClose();
+                  return;
+                }
+              }
+
+              {
                 toast.error(translations.orderSubmittedError, {
                   position: "top-center",
                 });
@@ -292,7 +336,7 @@ export const OrderFormModal = ({
                       <Combobox
                         immediate
                         value={values.city}
-                        onChange={(val) => setFieldValue("city", val)}
+                        onChange={(val) => handleCommuneChange(Number(val), setFieldValue)}
                         name="city"
                         disabled={!values.wilaya || isSubmitting}
                       >
@@ -344,6 +388,36 @@ export const OrderFormModal = ({
                       </Combobox>
                     </label>
                   </div>
+
+                  <div>
+                    <label className="flex flex-col gap-1">
+                      <span className="text-xs text-neutral-700">
+                        {translations.deliveryOption || "Delivery Option"}
+                      </span>
+                      <select
+                        name="delivery_type"
+                        value={values.delivery_type}
+                        onChange={handleChange}
+                        required
+                        disabled={!values.city || loadingDeliveryOptions || isSubmitting}
+                        className="mt-1 block w-full rounded-md border-neutral-300 px-2 py-2 shadow-sm focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 disabled:bg-gray-100 placeholder:text-neutral-400"
+                      >
+                        <option value="">
+                          {loadingDeliveryOptions
+                            ? messages.loading
+                            : !values.city
+                              ? messages.selectCommuneFirst || "Select a commune first"
+                              : translations.selectOption || "Select an option"}
+                        </option>
+                        {deliveryOptions.map((option) => (
+                          <option key={option.type} value={option.type}>
+                            {translations[option.type] || option.name} - {option.price} DA
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+
                   <div className="mt-6 flex justify-end gap-2">
                     <button
                       type="button"
