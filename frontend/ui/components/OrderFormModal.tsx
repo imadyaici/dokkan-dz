@@ -190,24 +190,30 @@ export const OrderFormModal = ({
               if (res.ok) {
                 const data = await res.json();
                 if (data.success) {
+                  if ((window as any).fbq) {
+                    (window as any).fbq('track', 'Purchase', {
+                      content_ids: [product?._id],
+                      content_name: product?.name?.[Object.keys(product?.name || {})[0] as keyof typeof product.name] || 'Product',
+                      content_type: 'product',
+                      value: (product?.price || 0) * quantity,
+                      currency: 'DZD',
+                    });
+                  }
+
                   toast.success(translations.orderSubmittedSuccess, {
                     position: "top-center",
                   });
                   const productPrice = (product?.price || 0) * quantity;
                   const selectedOption = deliveryOptions.find(o => o.type === values.delivery_type);
                   const deliveryPrice = selectedOption?.price || 0;
-                  const totalPrice = productPrice + deliveryPrice;
 
                   router.push(
                     `/${lang}/thank-you?${data.tracking ? `tracking=${data.tracking}` : ""
                     }&deliveryPrice=${deliveryPrice}&productPrice=${productPrice}&deliveryOption=${values.delivery_type}`
                   );
                   onClose();
-                  return;
                 }
-              }
-
-              {
+              } else {
                 toast.error(translations.orderSubmittedError, {
                   position: "top-center",
                 });

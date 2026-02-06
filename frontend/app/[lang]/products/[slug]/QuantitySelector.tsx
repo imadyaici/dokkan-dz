@@ -24,7 +24,18 @@ export function QuantitySelector({ product, translations }: Props) {
   const [showModal, setShowModal] = useState(false);
   const decrement = () => setQuantity((q) => Math.max(1, q - 1));
   const increment = () => setQuantity((q) => q + 1);
-  const handleAddClick = () => setShowModal(true);
+  const handleAddClick = () => {
+    if ((window as any).fbq) {
+      (window as any).fbq('track', 'AddToCart', {
+        content_ids: [product?._id],
+        content_name: product?.name?.[Object.keys(product?.name || {})[0] as keyof typeof product.name] || 'Product',
+        content_type: 'product',
+        value: product?.price,
+        currency: 'DZD',
+      });
+    }
+    setShowModal(true);
+  };
 
   return (
     <div className="mt-8 flex flex-col gap-4">

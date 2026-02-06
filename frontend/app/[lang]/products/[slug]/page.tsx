@@ -8,6 +8,7 @@ import { allProductsQuery, productQuery, settingsQuery } from "@/sanity/lib/quer
 import { i18n } from "@/i18n-config";
 import { AvailabilityMessage } from "@/ui/components/AvailabilityMessage";
 import { QuantitySelector } from "./QuantitySelector";
+import { TrackViewContent } from "./TrackViewContent";
 
 export async function generateMetadata(
   props: {
@@ -113,6 +114,14 @@ export default async function Page(props: {
 
   return (
     <section className="mx-auto grid max-w-7xl p-8">
+      <TrackViewContent
+        product={{
+          id: product._id,
+          name: product.name[lang as keyof typeof product.name],
+          price: product.price,
+          currency: 'DZD'
+        }}
+      />
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-8">
         <div className={`md:col-span-1 lg:col-span-5 ${isRTL ? 'order-2' : 'order-1'}`}>
           <Gallery images={product.images || []} />
