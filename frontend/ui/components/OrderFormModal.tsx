@@ -21,6 +21,7 @@ import { ProductQueryResult } from "@/sanity.types";
 import { useCurrentLang } from "@/hooks/useCurrentLang";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
+import * as fpixel from "@/utils/fpixel";
 
 type OrderFormTranslations = {
   [key: string]: string;
@@ -190,15 +191,13 @@ export const OrderFormModal = ({
               if (res.ok) {
                 const data = await res.json();
                 if (data.success) {
-                  if ((window as any).fbq) {
-                    (window as any).fbq('track', 'Purchase', {
-                      content_ids: [product?._id],
-                      content_name: product?.name?.[Object.keys(product?.name || {})[0] as keyof typeof product.name] || 'Product',
-                      content_type: 'product',
-                      value: (product?.price || 0) * quantity,
-                      currency: 'DZD',
-                    });
-                  }
+                  fpixel.event('Purchase', {
+                    content_ids: [product?._id],
+                    content_name: product?.name?.[Object.keys(product?.name || {})[0] as keyof typeof product.name] || 'Product',
+                    content_type: 'product',
+                    value: (product?.price || 0) * quantity,
+                    currency: 'DZD',
+                  });
 
                   toast.success(translations.orderSubmittedSuccess, {
                     position: "top-center",

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { OrderFormModal } from "@/ui/components/OrderFormModal";
 import { ProductQueryResult } from "@/sanity.types";
+import * as fpixel from "@/utils/fpixel";
 
 type Props = {
   product: ProductQueryResult;
@@ -25,15 +26,13 @@ export function QuantitySelector({ product, translations }: Props) {
   const decrement = () => setQuantity((q) => Math.max(1, q - 1));
   const increment = () => setQuantity((q) => q + 1);
   const handleAddClick = () => {
-    if ((window as any).fbq) {
-      (window as any).fbq('track', 'AddToCart', {
-        content_ids: [product?._id],
-        content_name: product?.name?.[Object.keys(product?.name || {})[0] as keyof typeof product.name] || 'Product',
-        content_type: 'product',
-        value: product?.price,
-        currency: 'DZD',
-      });
-    }
+    fpixel.event('AddToCart', {
+      content_ids: [product?._id],
+      content_name: product?.name?.[Object.keys(product?.name || {})[0] as keyof typeof product.name] || 'Product',
+      content_type: 'product',
+      value: product?.price,
+      currency: 'DZD',
+    });
     setShowModal(true);
   };
 
