@@ -23,7 +23,16 @@
       "price": "السعر",
       "quantity": "الكمية",
       "addToCart": "أضف إلى السلة",
-      "description": "الوصف"
+      "orderNow": "اطلب الآن",
+      "payOnDelivery": "الدفع عند الاستلام",
+      "description": "الوصف",
+      "onlyFewLeft": "بقي قطع قليلة فقط!",
+      "readyToShip": "جاهز للشحن"
+    },
+    "trust": {
+      "cod": "الدفع عند الاستلام",
+      "fastShipping": "شحن سريع",
+      "returns": "إرجاع في 7 أيام"
     },
     "navigation": {
       "home": "الرئيسية",

@@ -23,7 +23,16 @@
       "price": "Prix",
       "quantity": "Quantité",
       "addToCart": "Ajouter au panier",
-      "description": "Description"
+      "orderNow": "Commander maintenant",
+      "payOnDelivery": "Payer à la livraison",
+      "description": "Description",
+      "onlyFewLeft": "Plus que quelques exemplaires !",
+      "readyToShip": "Prêt à être expédié"
+    },
+    "trust": {
+      "cod": "Paiement à la livraison",
+      "fastShipping": "Livraison rapide",
+      "returns": "7 jours de retour"
     },
     "navigation": {
       "home": "Accueil",

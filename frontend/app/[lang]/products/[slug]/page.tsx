@@ -123,10 +123,10 @@ export default async function Page(props: {
         }}
       />
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-8">
-        <div className={`md:col-span-1 lg:col-span-5 ${isRTL ? 'order-2' : 'order-1'}`}>
+        <div className={`md:col-span-1 lg:col-span-5 ${isRTL ? 'sm:order-2' : 'sm:order-1'}`}>
           <Gallery images={product.images || []} />
         </div>
-        <div className={`flex flex-col pt-6 sm:col-span-1 sm:px-6 sm:pt-0 lg:col-span-3 lg:pt-16 ${isRTL ? 'text-right order-1' : 'order-2'}`}>
+        <div className={`flex flex-col pt-6 sm:col-span-1 sm:px-6 sm:pt-0 lg:col-span-3 lg:pt-16 ${isRTL ? 'text-right sm:order-1' : 'sm:order-2'}`}>
           <div>
             <h1 className="mb-4 flex-auto text-3xl font-medium tracking-tight text-neutral-900">
               {product?.name[lang as keyof typeof product.name]}
@@ -147,12 +147,15 @@ export default async function Page(props: {
               product={product}
               translations={{
                 addToCart: dictionary.common.product.addToCart,
+                orderNow: dictionary.common.product.orderNow,
+                payOnDelivery: dictionary.common.product.payOnDelivery,
                 orderForm: dictionary.common.orderForm,
                 messages: dictionary.common.messages,
+                trust: dictionary.common.trust,
               }}
             />
             {description && (
-              <div className="mt-8">
+              <div className="mt-6">
                 <h2 className="font-medium text-sm mb-4">
                   {dictionary.common.product.description}
                 </h2>
