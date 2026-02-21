@@ -2,55 +2,18 @@ export const formatDate = (date: Date | number) => {
   return new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format(date);
 };
 
-export const formatMoney = (amount: number, currency: string = 'DZD', lang?: string) => {
-  if (lang === 'ar') {
-    // For Arabic, use دج currency symbol
-    return new Intl.NumberFormat('ar-DZ', {
-      style: 'currency',
-      currency: 'DZD',
-      currencyDisplay: 'narrowSymbol',
-    })
-      .format(amount)
-      .replace('DZD', 'دج');
-  }
-
-  // For French or default, use DZD
-  return new Intl.NumberFormat('fr-DZ', {
+const formatters = {
+  ar: new Intl.NumberFormat('ar-DZ', {
     style: 'currency',
-    currency,
-  }).format(amount);
+    currency: 'DZD',
+  }),
+  fr: new Intl.NumberFormat('fr-DZ', {
+    style: 'currency',
+    currency: 'DZD',
+  }),
 };
 
-export const formatMoneyRange = (
-  range: {
-    start?: { amount: number; currency: string } | null;
-    stop?: { amount: number; currency: string } | null;
-  } | null,
-) => {
-  const { start, stop } = range || {};
-  const startMoney = start && formatMoney(start.amount, start.currency);
-  const stopMoney = stop && formatMoney(stop.amount, stop.currency);
-
-  if (startMoney === stopMoney) {
-    return startMoney;
-  }
-
-  return `${startMoney} - ${stopMoney}`;
+export const formatMoney = (amount: number, lang: string = 'fr') => {
+  const formatter = lang === 'ar' ? formatters.ar : formatters.fr;
+  return formatter.format(amount);
 };
-
-export function getHrefForVariant({
-  productSlug,
-  variantId,
-}: {
-  productSlug: string;
-  variantId?: string;
-}): string {
-  const pathname = `/products/${encodeURIComponent(productSlug)}`;
-
-  if (!variantId) {
-    return pathname;
-  }
-
-  const query = new URLSearchParams({ variant: variantId });
-  return `${pathname}?${query.toString()}`;
-}

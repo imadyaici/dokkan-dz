@@ -55,7 +55,7 @@ export function ProductElement({
               className="mt-1 font-medium text-neutral-900"
               data-testid="ProductElement_PriceRange"
             >
-              {formatMoney(product.price, 'DZD', currentLang)}
+              {formatMoney(product.price, currentLang)}
             </p>
           </div>
         </div>

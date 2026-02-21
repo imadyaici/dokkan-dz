@@ -18,6 +18,7 @@ import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { type ProductQueryResult } from '@/sanity.types';
 import * as fpixel from '@/utils/fpixel';
 import { usePhoneNumberValidator } from '@/utils/phoneNumber';
+import { formatMoney } from '@/utils/utils';
 
 type OrderFormTranslations = {
   [key: string]: string;
@@ -400,7 +401,8 @@ export const OrderFormModal = ({ onClose, product, quantity, translations, messa
                         </option>
                         {deliveryOptions.map((option) => (
                           <option key={option.type} value={option.type}>
-                            {translations[option.type] || option.name} - {option.price} DA
+                            {translations[option.type] || option.name} -{' '}
+                            {formatMoney(option.price, lang)}
                           </option>
                         ))}
                       </select>

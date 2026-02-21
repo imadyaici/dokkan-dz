@@ -48,7 +48,7 @@ export default async function ThankYouPage({
                 <div className="flex justify-between items-center text-sm">
                   <p className="text-gray-600">{dictionary.common.product.price}:</p>
                   <p className="font-medium text-gray-900">
-                    {formatMoney(Number(productPrice), 'DZD', lang)}
+                    {formatMoney(Number(productPrice), lang)}
                   </p>
                 </div>
               )}
@@ -62,7 +62,7 @@ export default async function ThankYouPage({
                     ):
                   </p>
                   <p className="font-medium text-gray-900">
-                    {formatMoney(Number(deliveryPrice), 'DZD', lang)}
+                    {formatMoney(Number(deliveryPrice), lang)}
                   </p>
                 </div>
               )}
@@ -73,9 +73,7 @@ export default async function ThankYouPage({
                 <p className="text-base font-bold text-gray-900">
                   {dictionary.common.thankYou.totalPrice || 'Total'}:
                 </p>
-                <p className="text-xl font-bold text-blue-600">
-                  {formatMoney(totalPrice, 'DZD', lang)}
-                </p>
+                <p className="text-xl font-bold text-blue-600">{formatMoney(totalPrice, lang)}</p>
               </div>
             )}
 

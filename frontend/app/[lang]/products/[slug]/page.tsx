@@ -108,7 +108,7 @@ export default async function Page(props: { params: Promise<{ slug: string; lang
   }
 
   const description = product?.description;
-  const price = formatMoney(product?.price, 'DZD', lang);
+  const price = formatMoney(product?.price, lang);
   const isRTL = lang === 'ar';
 
   return (
