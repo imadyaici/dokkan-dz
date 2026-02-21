@@ -1,11 +1,8 @@
-import { AllProductsQueryResult } from "@/sanity.types";
-import { ProductElement } from "./ProductElement";
+import { ProductElement } from './ProductElement';
 
-export const ProductList = ({
-  products,
-}: {
-  products: AllProductsQueryResult;
-}) => {
+import { type AllProductsQueryResult } from '@/sanity.types';
+
+export const ProductList = ({ products }: { products: AllProductsQueryResult }) => {
   return (
     <ul
       role="list"
@@ -17,7 +14,7 @@ export const ProductList = ({
           key={product._id}
           product={product}
           priority={index < 2}
-          loading={index < 3 ? "eager" : "lazy"}
+          loading={index < 3 ? 'eager' : 'lazy'}
         />
       ))}
     </ul>

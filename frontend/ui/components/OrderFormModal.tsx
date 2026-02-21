@@ -1,12 +1,6 @@
-"use client";
+'use client';
 
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  DialogTitle,
-} from "@headlessui/react";
-import { Formik } from "formik";
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 import {
   Combobox,
   Input,
@@ -14,14 +8,16 @@ import {
   ComboboxInput,
   ComboboxOptions,
   ComboboxOption,
-} from "@headlessui/react";
-import { toast } from "sonner";
-import { usePhoneNumberValidator } from "@/utils/phoneNumber";
-import { ProductQueryResult } from "@/sanity.types";
-import { useCurrentLang } from "@/hooks/useCurrentLang";
-import { useRouter } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
-import * as fpixel from "@/utils/fpixel";
+} from '@headlessui/react';
+import { Formik } from 'formik';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState, useRef } from 'react';
+import { toast } from 'sonner';
+
+import { useCurrentLang } from '@/hooks/useCurrentLang';
+import { type ProductQueryResult } from '@/sanity.types';
+import * as fpixel from '@/utils/fpixel';
+import { usePhoneNumberValidator } from '@/utils/phoneNumber';
 
 type OrderFormTranslations = {
   [key: string]: string;
@@ -39,16 +35,10 @@ type Props = {
   };
 };
 
-export const OrderFormModal = ({
-  onClose,
-  product,
-  quantity,
-  translations,
-  messages,
-}: Props) => {
+export const OrderFormModal = ({ onClose, product, quantity, translations, messages }: Props) => {
   const isValidPhoneNumber = usePhoneNumberValidator();
   const lang = useCurrentLang();
-  const isRTL = lang === "ar";
+  const isRTL = lang === 'ar';
   const router = useRouter();
 
   // State for dynamic data
@@ -92,12 +82,12 @@ export const OrderFormModal = ({
           const data: Wilaya[] = await res.json();
           // Deduplicate wilayas by code to avoid key collisions
           const uniqueWilayas = data.filter(
-            (w, index, self) => index === self.findIndex((t) => t.code === w.code)
+            (w, index, self) => index === self.findIndex((t) => t.code === w.code),
           );
           setWilayas(uniqueWilayas);
         }
       } catch (error) {
-        console.error("Failed to fetch wilayas:", error);
+        console.error('Failed to fetch wilayas:', error);
       } finally {
         setLoadingWilayas(false);
       }
@@ -107,8 +97,8 @@ export const OrderFormModal = ({
 
   // Handle Wilaya change to fetch Communes
   const handleWilayaChange = async (wilayaId: number, setFieldValue: any) => {
-    setFieldValue("wilaya", wilayaId);
-    setFieldValue("city", ""); // Reset city when wilaya changes
+    setFieldValue('wilaya', wilayaId);
+    setFieldValue('city', ''); // Reset city when wilaya changes
 
     if (communesCache.current[wilayaId]) {
       setCommunes(communesCache.current[wilayaId]);
@@ -125,15 +115,15 @@ export const OrderFormModal = ({
         setCommunes(data);
       }
     } catch (error) {
-      console.error("Failed to fetch communes:", error);
+      console.error('Failed to fetch communes:', error);
     } finally {
       setLoadingCommunes(false);
     }
   };
 
   const handleCommuneChange = async (communeId: number, setFieldValue: any) => {
-    setFieldValue("city", communeId);
-    setFieldValue("delivery_type", ""); // Reset delivery type when commune changes
+    setFieldValue('city', communeId);
+    setFieldValue('delivery_type', ''); // Reset delivery type when commune changes
 
     if (deliveryOptionsCache.current[communeId]) {
       setDeliveryOptions(deliveryOptionsCache.current[communeId]);
@@ -150,29 +140,29 @@ export const OrderFormModal = ({
         setDeliveryOptions(data);
       }
     } catch (error) {
-      console.error("Failed to fetch delivery options:", error);
+      console.error('Failed to fetch delivery options:', error);
     } finally {
       setLoadingDeliveryOptions(false);
     }
   };
 
   return (
-    <Dialog
-      open={true}
-      onClose={onClose}
-      className="relative z-50"
-      dir={isRTL ? "rtl" : "ltr"}
-    >
+    <Dialog open={true} onClose={onClose} className="relative z-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <DialogBackdrop className="fixed inset-0 bg-black/30" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel
-          className={`min-w-screen md:min-w-md max-w-lg rounded-lg bg-white p-8 shadow-lg ${isRTL ? "text-right" : ""}`}
+          className={`min-w-screen md:min-w-md max-w-lg rounded-lg bg-white p-8 shadow-lg ${isRTL ? 'text-right' : ''}`}
         >
-          <DialogTitle className="mb-6 text-xl font-semibold">
-            {translations.title}
-          </DialogTitle>
+          <DialogTitle className="mb-6 text-xl font-semibold">{translations.title}</DialogTitle>
           <Formik
-            initialValues={{ name: "", address: "", phone: "", wilaya: "", city: "", delivery_type: "" }}
+            initialValues={{
+              name: '',
+              address: '',
+              phone: '',
+              wilaya: '',
+              city: '',
+              delivery_type: '',
+            }}
             validate={(values) => {
               const errors: Record<string, string> = {};
               const phoneError = isValidPhoneNumber(values.phone);
@@ -180,10 +170,10 @@ export const OrderFormModal = ({
               return errors;
             }}
             onSubmit={async (values) => {
-              const res = await fetch("/api/order", {
-                method: "POST",
+              const res = await fetch('/api/order', {
+                method: 'POST',
                 headers: {
-                  "Content-Type": "application/json",
+                  'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ ...values, product, quantity }),
               });
@@ -193,28 +183,34 @@ export const OrderFormModal = ({
                 if (data.success) {
                   fpixel.event('Purchase', {
                     content_ids: [product?._id],
-                    content_name: product?.name?.[Object.keys(product?.name || {})[0] as keyof typeof product.name] || 'Product',
+                    content_name:
+                      product?.name?.[
+                        Object.keys(product?.name || {})[0] as keyof typeof product.name
+                      ] || 'Product',
                     content_type: 'product',
                     value: (product?.price || 0) * quantity,
                     currency: 'DZD',
                   });
 
                   toast.success(translations.orderSubmittedSuccess, {
-                    position: "top-center",
+                    position: 'top-center',
                   });
                   const productPrice = (product?.price || 0) * quantity;
-                  const selectedOption = deliveryOptions.find(o => o.type === values.delivery_type);
+                  const selectedOption = deliveryOptions.find(
+                    (o) => o.type === values.delivery_type,
+                  );
                   const deliveryPrice = selectedOption?.price || 0;
 
                   router.push(
-                    `/${lang}/thank-you?${data.tracking ? `tracking=${data.tracking}` : ""
-                    }&deliveryPrice=${deliveryPrice}&productPrice=${productPrice}&deliveryOption=${values.delivery_type}`
+                    `/${lang}/thank-you?${
+                      data.tracking ? `tracking=${data.tracking}` : ''
+                    }&deliveryPrice=${deliveryPrice}&productPrice=${productPrice}&deliveryOption=${values.delivery_type}`,
                   );
                   onClose();
                 }
               } else {
                 toast.error(translations.orderSubmittedError, {
-                  position: "top-center",
+                  position: 'top-center',
                 });
                 onClose();
               }
@@ -233,9 +229,7 @@ export const OrderFormModal = ({
                 <Fieldset className="space-y-4" disabled={isSubmitting}>
                   <div>
                     <label className="flex flex-col gap-1">
-                      <span className="text-xs text-neutral-700">
-                        {translations.name}
-                      </span>
+                      <span className="text-xs text-neutral-700">{translations.name}</span>
                       <Input
                         name="name"
                         required
@@ -247,9 +241,7 @@ export const OrderFormModal = ({
                   </div>
                   <div>
                     <label className="flex flex-col gap-1">
-                      <span className="text-xs text-neutral-700">
-                        {translations.address}
-                      </span>
+                      <span className="text-xs text-neutral-700">{translations.address}</span>
                       <Input
                         name="address"
                         required
@@ -261,9 +253,7 @@ export const OrderFormModal = ({
                   </div>
                   <div>
                     <label className="flex flex-col gap-1">
-                      <span className="text-xs text-neutral-700">
-                        {translations.phone}
-                      </span>
+                      <span className="text-xs text-neutral-700">{translations.phone}</span>
                       <Input
                         name="phone"
                         required
@@ -291,12 +281,12 @@ export const OrderFormModal = ({
                                 ? isRTL
                                   ? selected.name_ar
                                   : selected.name_lt
-                                : typeof val === "string"
+                                : typeof val === 'string'
                                   ? val
-                                  : "";
+                                  : '';
                             }}
-                            onChange={(e) => setFieldValue("wilaya", e.target.value)}
-                            placeholder={loadingWilayas ? messages.loading : ""}
+                            onChange={(e) => setFieldValue('wilaya', e.target.value)}
+                            placeholder={loadingWilayas ? messages.loading : ''}
                             required
                             autoComplete="off"
                           />
@@ -310,9 +300,9 @@ export const OrderFormModal = ({
                                     (isRTL ? w.name_ar : w.name_lt)
                                       .toLowerCase()
                                       .includes(
-                                        typeof values.wilaya === "string"
+                                        typeof values.wilaya === 'string'
                                           ? values.wilaya.toLowerCase()
-                                          : "",
+                                          : '',
                                       )
                                   );
                                 })
@@ -321,8 +311,7 @@ export const OrderFormModal = ({
                                     key={w.code}
                                     value={w.code}
                                     className={({ active }) =>
-                                      `cursor-pointer px-4 py-2 ${active ? "bg-blue-100" : ""
-                                      }`
+                                      `cursor-pointer px-4 py-2 ${active ? 'bg-blue-100' : ''}`
                                     }
                                   >
                                     {isRTL ? w.name_ar : w.name_lt}
@@ -335,9 +324,7 @@ export const OrderFormModal = ({
                   </div>
                   <div>
                     <label className="flex flex-col gap-1">
-                      <span className="text-xs text-neutral-700">
-                        {translations.commune}
-                      </span>
+                      <span className="text-xs text-neutral-700">{translations.commune}</span>
                       <Combobox
                         immediate
                         value={values.city}
@@ -350,11 +337,9 @@ export const OrderFormModal = ({
                             className="mt-1 block w-full rounded-md border-neutral-300 px-2 py-2 shadow-sm focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 disabled:bg-gray-100 placeholder:text-neutral-400"
                             displayValue={(val: any) => {
                               const selected = communes.find((c) => c.id === val);
-                              return selected ? selected.name : ""; // Assuming name is always latin/available? Docs say "name"
+                              return selected ? selected.name : ''; // Assuming name is always latin/available? Docs say "name"
                             }}
-                            onChange={(e) =>
-                              setFieldValue("city", e.target.value)
-                            }
+                            onChange={(e) => setFieldValue('city', e.target.value)}
                             required
                             autoComplete="off"
                             placeholder={
@@ -362,7 +347,7 @@ export const OrderFormModal = ({
                                 ? messages.loading
                                 : !values.wilaya
                                   ? messages.selectWilayaFirst
-                                  : ""
+                                  : ''
                             }
                           />
                           <ComboboxOptions className="absolute left-0 top-full z-10 max-h-60 w-full overflow-auto rounded border border-neutral-200 bg-white shadow">
@@ -371,9 +356,9 @@ export const OrderFormModal = ({
                                 c.name
                                   .toLowerCase()
                                   .includes(
-                                    typeof values.city === "string"
+                                    typeof values.city === 'string'
                                       ? values.city.toLowerCase()
-                                      : "",
+                                      : '',
                                   ),
                               )
                               .map((c) => (
@@ -381,8 +366,7 @@ export const OrderFormModal = ({
                                   key={c.id}
                                   value={c.id}
                                   className={({ active }) =>
-                                    `cursor-pointer px-4 py-2 ${active ? "bg-blue-100" : ""
-                                    }`
+                                    `cursor-pointer px-4 py-2 ${active ? 'bg-blue-100' : ''}`
                                   }
                                 >
                                   {c.name}
@@ -397,7 +381,7 @@ export const OrderFormModal = ({
                   <div>
                     <label className="flex flex-col gap-1">
                       <span className="text-xs text-neutral-700">
-                        {translations.deliveryOption || "Delivery Option"}
+                        {translations.deliveryOption || 'Delivery Option'}
                       </span>
                       <select
                         name="delivery_type"
@@ -411,8 +395,8 @@ export const OrderFormModal = ({
                           {loadingDeliveryOptions
                             ? messages.loading
                             : !values.city
-                              ? messages.selectCommuneFirst || "Select a commune first"
-                              : translations.selectOption || "Select an option"}
+                              ? messages.selectCommuneFirst || 'Select a commune first'
+                              : translations.selectOption || 'Select an option'}
                         </option>
                         {deliveryOptions.map((option) => (
                           <option key={option.type} value={option.type}>
@@ -440,7 +424,7 @@ export const OrderFormModal = ({
                       {isSubmitting ? (
                         <div className="flex items-center gap-2">
                           <div className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                          <span>{messages.loading || "..."}</span>
+                          <span>{messages.loading || '...'}</span>
                         </div>
                       ) : (
                         translations.submit

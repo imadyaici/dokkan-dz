@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
-import { Fragment, type ReactNode } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { useMobileMenu } from "./useMobileMenu";
-import { OpenButton } from "./OpenButton";
-import { CloseButton } from "./CloseButton";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, type ReactNode } from 'react';
+
+import { CloseButton } from './CloseButton';
+import { OpenButton } from './OpenButton';
+import { useMobileMenu } from './useMobileMenu';
 
 type Props = {
   children: ReactNode;

@@ -12,9 +12,9 @@
  * ---------------------------------------------------------------------------------
  */
 
-// Source: schema.json
+// Source: ../studio/schema.json
 export type CallToAction = {
-  _type: "callToAction";
+  _type: 'callToAction';
   heading: string;
   text?: string;
   buttonText?: string;
@@ -22,34 +22,34 @@ export type CallToAction = {
 };
 
 export type Link = {
-  _type: "link";
-  linkType?: "href";
+  _type: 'link';
+  linkType?: 'href';
   href?: string;
   openInNewTab?: boolean;
 };
 
 export type InfoSection = {
-  _type: "infoSection";
+  _type: 'infoSection';
   heading?: string;
   subheading?: string;
   content?: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
-      _type: "span";
+      _type: 'span';
       _key: string;
     }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+    listItem?: 'bullet' | 'number';
     markDefs?: Array<{
-      linkType?: "href";
+      linkType?: 'href';
       href?: string;
       openInNewTab?: boolean;
-      _type: "link";
+      _type: 'link';
       _key: string;
     }>;
     level?: number;
-    _type: "block";
+    _type: 'block';
     _key: string;
   }>;
 };
@@ -58,26 +58,26 @@ export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
     text?: string;
-    _type: "span";
+    _type: 'span';
     _key: string;
   }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-  listItem?: "bullet" | "number";
+  style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote';
+  listItem?: 'bullet' | 'number';
   markDefs?: Array<{
-    linkType?: "href";
+    linkType?: 'href';
     href?: string;
     openInNewTab?: boolean;
-    _type: "link";
+    _type: 'link';
     _key: string;
   }>;
   level?: number;
-  _type: "block";
+  _type: 'block';
   _key: string;
 }>;
 
 export type Product = {
   _id: string;
-  _type: "product";
+  _type: 'product';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -94,21 +94,21 @@ export type Product = {
   images: Array<{
     asset?: {
       _ref: string;
-      _type: "reference";
+      _type: 'reference';
       _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
     };
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    _type: "image";
+    _type: 'image';
     _key: string;
   }>;
 };
 
 export type Settings = {
   _id: string;
-  _type: "settings";
+  _type: 'settings';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -124,15 +124,15 @@ export type Settings = {
   logo?: {
     asset?: {
       _ref: string;
-      _type: "reference";
+      _type: 'reference';
       _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
     };
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
-    _type: "image";
+    _type: 'image';
   };
   description?: {
     fr?: string;
@@ -145,9 +145,9 @@ export type Settings = {
   ogImage?: {
     asset?: {
       _ref: string;
-      _type: "reference";
+      _type: 'reference';
       _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
     };
     media?: unknown;
     hotspot?: SanityImageHotspot;
@@ -157,11 +157,11 @@ export type Settings = {
       ar: string;
     };
     metadataBase?: string;
-    _type: "image";
+    _type: 'image';
   };
   robotsTxt?: string;
   socialLinks?: Array<{
-    platform?: "facebook" | "twitter" | "instagram" | "linkedin" | "youtube";
+    platform?: 'facebook' | 'twitter' | 'instagram' | 'linkedin' | 'youtube';
     url?: string;
     _key: string;
   }>;
@@ -181,7 +181,7 @@ export type Settings = {
 };
 
 export type SanityAssistInstructionTask = {
-  _type: "sanity.assist.instructionTask";
+  _type: 'sanity.assist.instructionTask';
   path?: string;
   instructionKey?: string;
   started?: string;
@@ -190,43 +190,47 @@ export type SanityAssistInstructionTask = {
 };
 
 export type SanityAssistTaskStatus = {
-  _type: "sanity.assist.task.status";
-  tasks?: Array<{
-    _key: string;
-  } & SanityAssistInstructionTask>;
+  _type: 'sanity.assist.task.status';
+  tasks?: Array<
+    {
+      _key: string;
+    } & SanityAssistInstructionTask
+  >;
 };
 
 export type SanityAssistSchemaTypeAnnotations = {
-  _type: "sanity.assist.schemaType.annotations";
+  _type: 'sanity.assist.schemaType.annotations';
   title?: string;
-  fields?: Array<{
-    _key: string;
-  } & SanityAssistSchemaTypeField>;
+  fields?: Array<
+    {
+      _key: string;
+    } & SanityAssistSchemaTypeField
+  >;
 };
 
 export type SanityAssistOutputType = {
-  _type: "sanity.assist.output.type";
+  _type: 'sanity.assist.output.type';
   type?: string;
 };
 
 export type SanityAssistOutputField = {
-  _type: "sanity.assist.output.field";
+  _type: 'sanity.assist.output.field';
   path?: string;
 };
 
 export type SanityAssistInstructionContext = {
-  _type: "sanity.assist.instruction.context";
+  _type: 'sanity.assist.instruction.context';
   reference: {
     _ref: string;
-    _type: "reference";
+    _type: 'reference';
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "assist.instruction.context";
+    [internalGroqTypeReferenceTo]?: 'assist.instruction.context';
   };
 };
 
 export type AssistInstructionContext = {
   _id: string;
-  _type: "assist.instruction.context";
+  _type: 'assist.instruction.context';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -235,74 +239,84 @@ export type AssistInstructionContext = {
     children?: Array<{
       marks?: Array<string>;
       text?: string;
-      _type: "span";
+      _type: 'span';
       _key: string;
     }>;
-    style?: "normal";
+    style?: 'normal';
     listItem?: never;
     markDefs?: null;
     level?: number;
-    _type: "block";
+    _type: 'block';
     _key: string;
   }>;
 };
 
 export type SanityAssistInstructionUserInput = {
-  _type: "sanity.assist.instruction.userInput";
+  _type: 'sanity.assist.instruction.userInput';
   message: string;
   description?: string;
 };
 
 export type SanityAssistInstructionPrompt = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  } | {
-    _key: string;
-  } & SanityAssistInstructionFieldRef | {
-    _key: string;
-  } & SanityAssistInstructionContext | {
-    _key: string;
-  } & SanityAssistInstructionUserInput>;
-  style?: "normal";
+  children?: Array<
+    | {
+        marks?: Array<string>;
+        text?: string;
+        _type: 'span';
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & SanityAssistInstructionFieldRef)
+    | ({
+        _key: string;
+      } & SanityAssistInstructionContext)
+    | ({
+        _key: string;
+      } & SanityAssistInstructionUserInput)
+  >;
+  style?: 'normal';
   listItem?: never;
   markDefs?: null;
   level?: number;
-  _type: "block";
+  _type: 'block';
   _key: string;
 }>;
 
 export type SanityAssistInstructionFieldRef = {
-  _type: "sanity.assist.instruction.fieldRef";
+  _type: 'sanity.assist.instruction.fieldRef';
   path?: string;
 };
 
 export type SanityAssistInstruction = {
-  _type: "sanity.assist.instruction";
+  _type: 'sanity.assist.instruction';
   prompt?: SanityAssistInstructionPrompt;
   icon?: string;
   title?: string;
   userId?: string;
   createdById?: string;
-  output?: Array<{
-    _key: string;
-  } & SanityAssistOutputField | {
-    _key: string;
-  } & SanityAssistOutputType>;
+  output?: Array<
+    | ({
+        _key: string;
+      } & SanityAssistOutputField)
+    | ({
+        _key: string;
+      } & SanityAssistOutputType)
+  >;
 };
 
 export type SanityAssistSchemaTypeField = {
-  _type: "sanity.assist.schemaType.field";
+  _type: 'sanity.assist.schemaType.field';
   path?: string;
-  instructions?: Array<{
-    _key: string;
-  } & SanityAssistInstruction>;
+  instructions?: Array<
+    {
+      _key: string;
+    } & SanityAssistInstruction
+  >;
 };
 
 export type SanityImagePaletteSwatch = {
-  _type: "sanity.imagePaletteSwatch";
+  _type: 'sanity.imagePaletteSwatch';
   background?: string;
   foreground?: string;
   population?: number;
@@ -310,7 +324,7 @@ export type SanityImagePaletteSwatch = {
 };
 
 export type SanityImagePalette = {
-  _type: "sanity.imagePalette";
+  _type: 'sanity.imagePalette';
   darkMuted?: SanityImagePaletteSwatch;
   lightVibrant?: SanityImagePaletteSwatch;
   darkVibrant?: SanityImagePaletteSwatch;
@@ -321,14 +335,14 @@ export type SanityImagePalette = {
 };
 
 export type SanityImageDimensions = {
-  _type: "sanity.imageDimensions";
+  _type: 'sanity.imageDimensions';
   height?: number;
   width?: number;
   aspectRatio?: number;
 };
 
 export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
+  _type: 'sanity.imageHotspot';
   x?: number;
   y?: number;
   height?: number;
@@ -336,7 +350,7 @@ export type SanityImageHotspot = {
 };
 
 export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
+  _type: 'sanity.imageCrop';
   top?: number;
   bottom?: number;
   left?: number;
@@ -345,7 +359,7 @@ export type SanityImageCrop = {
 
 export type SanityFileAsset = {
   _id: string;
-  _type: "sanity.fileAsset";
+  _type: 'sanity.fileAsset';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -367,7 +381,7 @@ export type SanityFileAsset = {
 
 export type SanityImageAsset = {
   _id: string;
-  _type: "sanity.imageAsset";
+  _type: 'sanity.imageAsset';
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -389,7 +403,7 @@ export type SanityImageAsset = {
 };
 
 export type SanityImageMetadata = {
-  _type: "sanity.imageMetadata";
+  _type: 'sanity.imageMetadata';
   location?: Geopoint;
   dimensions?: SanityImageDimensions;
   palette?: SanityImagePalette;
@@ -400,28 +414,59 @@ export type SanityImageMetadata = {
 };
 
 export type Geopoint = {
-  _type: "geopoint";
+  _type: 'geopoint';
   lat?: number;
   lng?: number;
   alt?: number;
 };
 
 export type Slug = {
-  _type: "slug";
+  _type: 'slug';
   current: string;
   source?: string;
 };
 
 export type SanityAssetSourceData = {
-  _type: "sanity.assetSourceData";
+  _type: 'sanity.assetSourceData';
   name?: string;
   id?: string;
   url?: string;
 };
 
-export type AllSanitySchemaTypes = CallToAction | Link | InfoSection | BlockContent | Product | Settings | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes =
+  | CallToAction
+  | Link
+  | InfoSection
+  | BlockContent
+  | Product
+  | Settings
+  | SanityAssistInstructionTask
+  | SanityAssistTaskStatus
+  | SanityAssistSchemaTypeAnnotations
+  | SanityAssistOutputType
+  | SanityAssistOutputField
+  | SanityAssistInstructionContext
+  | AssistInstructionContext
+  | SanityAssistInstructionUserInput
+  | SanityAssistInstructionPrompt
+  | SanityAssistInstructionFieldRef
+  | SanityAssistInstruction
+  | SanityAssistSchemaTypeField
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityImageHotspot
+  | SanityImageCrop
+  | SanityFileAsset
+  | SanityImageAsset
+  | SanityImageMetadata
+  | Geopoint
+  | Slug
+  | SanityAssetSourceData;
+
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./sanity/lib/queries.ts
+
+// Source: sanity/lib/queries.ts
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0] {    title,    tagline,    url,    "logo": logo.asset->url,    "logoAlt": logo.alt,    description,    keywords,    ogImage {      asset->,      alt,      metadataBase    },    robotsTxt,    socialLinks[] {      platform,      url    },    contactInfo  }
 export type SettingsQueryResult = {
@@ -447,7 +492,7 @@ export type SettingsQueryResult = {
   ogImage: {
     asset: {
       _id: string;
-      _type: "sanity.imageAsset";
+      _type: 'sanity.imageAsset';
       _createdAt: string;
       _updatedAt: string;
       _rev: string;
@@ -475,7 +520,7 @@ export type SettingsQueryResult = {
   } | null;
   robotsTxt: string | null;
   socialLinks: Array<{
-    platform: "facebook" | "instagram" | "linkedin" | "twitter" | "youtube" | null;
+    platform: 'facebook' | 'instagram' | 'linkedin' | 'twitter' | 'youtube' | null;
     url: string | null;
   }> | null;
   contactInfo: {
@@ -492,6 +537,8 @@ export type SettingsQueryResult = {
     };
   } | null;
 } | null;
+
+// Source: sanity/lib/queries.ts
 // Variable: productQuery
 // Query: *[_type == "product" && slug.current == $slug][0] {    _id,    name,    "slug": slug.current,    description,    price,    images[]{      asset->{        _id,        url,      }    },    _updatedAt,  }
 export type ProductQueryResult = {
@@ -514,6 +561,8 @@ export type ProductQueryResult = {
   }>;
   _updatedAt: string;
 } | null;
+
+// Source: sanity/lib/queries.ts
 // Variable: allProductsQuery
 // Query: *[_type == "product" && defined(slug.current)] | order(name asc) {    _id,    name,    "slug": slug.current,    description,    price,    images[]{      asset->{        _id,        url,      }    },    _updatedAt  }
 export type AllProductsQueryResult = Array<{
@@ -538,11 +587,12 @@ export type AllProductsQueryResult = Array<{
 }>;
 
 // Query TypeMap
-import "@sanity/client";
-declare module "@sanity/client" {
+import '@sanity/client';
+
+declare module '@sanity/client' {
   interface SanityQueries {
-    "\n  *[_type == \"settings\"][0] {\n    title,\n    tagline,\n    url,\n    \"logo\": logo.asset->url,\n    \"logoAlt\": logo.alt,\n    description,\n    keywords,\n    ogImage {\n      asset->,\n      alt,\n      metadataBase\n    },\n    robotsTxt,\n    socialLinks[] {\n      platform,\n      url\n    },\n    contactInfo\n  }\n": SettingsQueryResult;
-    "\n  *[_type == \"product\" && slug.current == $slug][0] {\n    _id,\n    name,\n    \"slug\": slug.current,\n    description,\n    price,\n    images[]{\n      asset->{\n        _id,\n        url,\n      }\n    },\n    _updatedAt,\n  }\n": ProductQueryResult;
-    "\n  *[_type == \"product\" && defined(slug.current)] | order(name asc) {\n    _id,\n    name,\n    \"slug\": slug.current,\n    description,\n    price,\n    images[]{\n      asset->{\n        _id,\n        url,\n      }\n    },\n    _updatedAt\n  }\n": AllProductsQueryResult;
+    '\n  *[_type == "settings"][0] {\n    title,\n    tagline,\n    url,\n    "logo": logo.asset->url,\n    "logoAlt": logo.alt,\n    description,\n    keywords,\n    ogImage {\n      asset->,\n      alt,\n      metadataBase\n    },\n    robotsTxt,\n    socialLinks[] {\n      platform,\n      url\n    },\n    contactInfo\n  }\n': SettingsQueryResult;
+    '\n  *[_type == "product" && slug.current == $slug][0] {\n    _id,\n    name,\n    "slug": slug.current,\n    description,\n    price,\n    images[]{\n      asset->{\n        _id,\n        url,\n      }\n    },\n    _updatedAt,\n  }\n': ProductQueryResult;
+    '\n  *[_type == "product" && defined(slug.current)] | order(name asc) {\n    _id,\n    name,\n    "slug": slug.current,\n    description,\n    price,\n    images[]{\n      asset->{\n        _id,\n        url,\n      }\n    },\n    _updatedAt\n  }\n': AllProductsQueryResult;
   }
 }

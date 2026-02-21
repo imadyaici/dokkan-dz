@@ -1,5 +1,5 @@
-import { defineField, defineType } from 'sanity'
-import { LinkIcon } from '@sanity/icons'
+import { defineField, defineType } from 'sanity';
+import { LinkIcon } from '@sanity/icons';
 
 /**
  * Link schema object. This link object lets the user first select the type of link and then
@@ -19,9 +19,7 @@ export const link = defineType({
       type: 'string',
       initialValue: 'url',
       options: {
-        list: [
-          { title: 'URL', value: 'href' },
-        ],
+        list: [{ title: 'URL', value: 'href' }],
         layout: 'radio',
       },
     }),
@@ -34,9 +32,9 @@ export const link = defineType({
         // Custom validation to ensure URL is provided if the link type is 'href'
         Rule.custom((value, context: any) => {
           if (context.parent?.linkType === 'href' && !value) {
-            return 'URL is required when Link Type is URL'
+            return 'URL is required when Link Type is URL';
           }
-          return true
+          return true;
         }),
     }),
     defineField({
@@ -46,4 +44,4 @@ export const link = defineType({
       initialValue: false,
     }),
   ],
-})
+});

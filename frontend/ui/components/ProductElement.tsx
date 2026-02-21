@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { ProductImageWrapper } from "@/ui/atoms/ProductImageWrapper";
-import { formatMoney } from "@/utils/utils";
-import { ProductQueryResult } from "@/sanity.types";
-import { useCurrentLang } from "@/hooks/useCurrentLang";
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
+import { useCurrentLang } from '@/hooks/useCurrentLang';
+import { type ProductQueryResult } from '@/sanity.types';
+import { ProductImageWrapper } from '@/ui/atoms/ProductImageWrapper';
+import { formatMoney } from '@/utils/utils';
 
 export function ProductElement({
   product,
@@ -13,7 +14,7 @@ export function ProductElement({
   priority,
 }: {
   product: ProductQueryResult;
-  loading: "eager" | "lazy";
+  loading: 'eager' | 'lazy';
   priority?: boolean;
 }) {
   const currentLang = useCurrentLang();
@@ -35,22 +36,18 @@ export function ProductElement({
               alt={product.name[currentLang as keyof typeof product.name]}
               width={512}
               height={512}
-              sizes={"512px"}
+              sizes={'512px'}
               priority={priority}
             />
           )}
           <div
-            className={`mt-2 flex justify-between ${isRTL ? "flex-row-reverse text-right" : ""
-              }`}
+            className={`mt-2 flex justify-between ${isRTL ? 'flex-row-reverse text-right' : ''}`}
           >
             <div>
               <h3 className="mt-1 font-semibold text-neutral-900">
                 {product.name[currentLang as keyof typeof product.name]}
               </h3>
-              <p
-                className="mt-1 text-sm text-neutral-500"
-                data-testid="ProductElement_Category"
-              >
+              <p className="mt-1 text-sm text-neutral-500" data-testid="ProductElement_Category">
                 {/* {product.category?.name} */}
               </p>
             </div>

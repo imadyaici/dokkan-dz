@@ -4,7 +4,9 @@ export default {
         // Enforce lowercase for types and scopes
         'type-case': [2, 'always', 'lower-case'],
         'scope-case': [2, 'always', 'lower-case'],
-        'subject-case': [2, 'always', 'lower-case'],
+        // Disable strict limitations on the commit description
+        'subject-case': [0, 'always'],
+        'subject-full-stop': [0, 'never'],
         // Examples of allowed types:
         // feat: A new feature
         // fix: A bug fix

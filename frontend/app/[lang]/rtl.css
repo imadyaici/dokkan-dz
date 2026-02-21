@@ -1,4 +1,4 @@
-:root[dir="rtl"] {
+:root[dir='rtl'] {
   /* Text alignment */
   --text-align: right;
   --float: right;
@@ -10,7 +10,7 @@
   --padding-end: padding-left;
 }
 
-:root[dir="ltr"] {
+:root[dir='ltr'] {
   /* Text alignment */
   --text-align: left;
   --float: left;

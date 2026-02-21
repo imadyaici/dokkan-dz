@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useState } from "react";
+import Image from 'next/image';
+import { useState } from 'react';
 
 export function Gallery({
   images = [],
@@ -16,8 +16,8 @@ export function Gallery({
     <div className="flex flex-col items-center">
       <div className="relative aspect-square w-full max-w-[300px] sm:max-w-xl bg-white border border-blue-600 rounded-lg overflow-hidden flex items-center justify-center">
         <Image
-          src={images[selected].asset?.url || ""}
-          alt={"Product image"}
+          src={images[selected].asset?.url || ''}
+          alt={'Product image'}
           fill
           className="object-contain"
           priority
@@ -29,13 +29,13 @@ export function Gallery({
             <button
               key={img.asset?._id}
               onClick={() => setSelected(idx)}
-              className={`border border-blue-600 rounded-lg overflow-hidden focus:outline-none ${selected === idx ? "ring-2 ring-blue-500" : ""}`}
+              className={`border border-blue-600 rounded-lg overflow-hidden focus:outline-none ${selected === idx ? 'ring-2 ring-blue-500' : ''}`}
               aria-label={`Show image ${idx + 1}`}
             >
               <div className="relative aspect-square w-full">
                 <Image
-                  src={img.asset?.url || ""}
-                  alt={"Product image"}
+                  src={img.asset?.url || ''}
+                  alt={'Product image'}
                   fill
                   className="object-cover"
                 />

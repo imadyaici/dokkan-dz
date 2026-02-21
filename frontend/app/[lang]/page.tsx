@@ -1,6 +1,6 @@
-import { sanityFetch } from "@/sanity/lib/live";
-import { allProductsQuery } from "@/sanity/lib/queries";
-import { ProductList } from "@/ui/components/ProductList";
+import { sanityFetch } from '@/sanity/lib/live';
+import { allProductsQuery } from '@/sanity/lib/queries';
+import { ProductList } from '@/ui/components/ProductList';
 
 export default async function Page() {
   const { data: products } = await sanityFetch({

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @plugin "@tailwindcss/typography";
 
@@ -28,38 +28,38 @@
   --color-gray-900: #1b1d27;
   --color-gray-950: #13141b;
 
-  --font-display: "Inter", sans-serif;
-  --font-sans: "Inter", sans-serif;
-  --font-arabic: "Noto Sans Arabic", sans-serif;
+  --font-display: 'Inter', sans-serif;
+  --font-sans: 'Inter', sans-serif;
+  --font-arabic: 'Noto Sans Arabic', sans-serif;
 
   --default-transition-duration: 250ms;
 }
 
 /* Override RTL behavior for specific components */
-[dir="rtl"] .order-1 {
+[dir='rtl'] .order-1 {
   order: 1 !important;
 }
 
-[dir="rtl"] .order-2 {
+[dir='rtl'] .order-2 {
   order: 2 !important;
 }
 
 /* Ensure text alignment works with dir attribute */
-[dir="rtl"] .text-right {
+[dir='rtl'] .text-right {
   text-align: right !important;
 }
 
-[dir="rtl"] .text-left {
+[dir='rtl'] .text-left {
   text-align: left !important;
 }
 
 /* Override flex direction for specific layouts */
-[dir="rtl"] .flex-row-reverse {
+[dir='rtl'] .flex-row-reverse {
   flex-direction: row-reverse !important;
 }
 
 /* Preserve our custom layout order */
-[dir="rtl"] .grid {
+[dir='rtl'] .grid {
   direction: ltr;
   /* Keep grid direction LTR for our custom ordering */
 }

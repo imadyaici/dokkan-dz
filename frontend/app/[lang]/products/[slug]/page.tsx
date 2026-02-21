@@ -1,20 +1,20 @@
-import { notFound } from "next/navigation";
-import { type ResolvingMetadata, type Metadata } from "next";
-import xss from "xss";
-import { Gallery } from "@/ui/components/Gallery";
-import { formatMoney } from "@/utils/utils";
-import { sanityFetch } from "@/sanity/lib/live";
-import { allProductsQuery, productQuery, settingsQuery } from "@/sanity/lib/queries";
-import { i18n } from "@/i18n-config";
-import { AvailabilityMessage } from "@/ui/components/AvailabilityMessage";
-import { QuantitySelector } from "./QuantitySelector";
-import { TrackViewContent } from "./TrackViewContent";
+import { type ResolvingMetadata, type Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import xss from 'xss';
 
-export async function generateMetadata(
-  props: {
-    params: Promise<{ slug: string; lang: string }>;
-  }
-): Promise<Metadata> {
+import { QuantitySelector } from './QuantitySelector';
+import { TrackViewContent } from './TrackViewContent';
+
+import { i18n } from '@/i18n-config';
+import { sanityFetch } from '@/sanity/lib/live';
+import { allProductsQuery, productQuery, settingsQuery } from '@/sanity/lib/queries';
+import { AvailabilityMessage } from '@/ui/components/AvailabilityMessage';
+import { Gallery } from '@/ui/components/Gallery';
+import { formatMoney } from '@/utils/utils';
+
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string; lang: string }>;
+}): Promise<Metadata> {
   const params = await props.params;
 
   const { data: product } = await sanityFetch({
@@ -48,22 +48,23 @@ export async function generateMetadata(
         ? `${siteUrl}/${params.lang}/products/${encodeURIComponent(params.slug)}`
         : undefined,
       languages: Object.fromEntries(
-        i18n.locales.map(locale => [
+        i18n.locales.map((locale) => [
           locale,
-          siteUrl ? `${siteUrl}/${locale}/products/${encodeURIComponent(params.slug)}` : undefined
-        ])
+          siteUrl ? `${siteUrl}/${locale}/products/${encodeURIComponent(params.slug)}` : undefined,
+        ]),
       ),
     },
-    openGraph: product.images && product.images.length > 0
-      ? {
-        images: [
-          {
-            url: product.images[0].asset?.url || '',
-            alt: productName,
-          },
-        ],
-      }
-      : null,
+    openGraph:
+      product.images && product.images.length > 0
+        ? {
+            images: [
+              {
+                url: product.images[0].asset?.url || '',
+                alt: productName,
+              },
+            ],
+          }
+        : null,
   };
 }
 
@@ -71,7 +72,7 @@ export async function generateStaticParams() {
   try {
     const { data: products } = await sanityFetch({
       query: allProductsQuery,
-      perspective: "published",
+      perspective: 'published',
       stega: false,
     });
 
@@ -83,7 +84,7 @@ export async function generateStaticParams() {
       products.map((product) => ({
         lang,
         slug: product.slug,
-      }))
+      })),
     );
   } catch (error) {
     console.error('Error generating static params:', error);
@@ -91,9 +92,7 @@ export async function generateStaticParams() {
   }
 }
 
-export default async function Page(props: {
-  params: Promise<{ slug: string; lang: string }>;
-}) {
+export default async function Page(props: { params: Promise<{ slug: string; lang: string }> }) {
   const { slug, lang } = await props.params;
   const dictionary = (await import(`@/public/locales/${lang}/common.json`)).default;
 
@@ -119,30 +118,27 @@ export default async function Page(props: {
           id: product._id,
           name: product.name[lang as keyof typeof product.name],
           price: product.price,
-          currency: 'DZD'
+          currency: 'DZD',
         }}
       />
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-8">
         <div className={`md:col-span-1 lg:col-span-5 ${isRTL ? 'sm:order-2' : 'sm:order-1'}`}>
           <Gallery images={product.images || []} />
         </div>
-        <div className={`flex flex-col pt-6 sm:col-span-1 sm:px-6 sm:pt-0 lg:col-span-3 lg:pt-16 ${isRTL ? 'text-right sm:order-1' : 'sm:order-2'}`}>
+        <div
+          className={`flex flex-col pt-6 sm:col-span-1 sm:px-6 sm:pt-0 lg:col-span-3 lg:pt-16 ${isRTL ? 'text-right sm:order-1' : 'sm:order-2'}`}
+        >
           <div>
             <h1 className="mb-4 flex-auto text-3xl font-medium tracking-tight text-neutral-900">
               {product?.name[lang as keyof typeof product.name]}
             </h1>
             <div className="mb-8">
-              <span className="font-medium text-sm">
-                {dictionary.common.product.price}:{" "}
-              </span>
+              <span className="font-medium text-sm">{dictionary.common.product.price}: </span>
               <span className="text-sm" data-testid="ProductElement_Price">
                 {price}
               </span>
             </div>
-            <AvailabilityMessage
-              isAvailable={true}
-              lang={lang}
-            />
+            <AvailabilityMessage isAvailable={true} lang={lang} />
             <QuantitySelector
               product={product}
               translations={{
@@ -162,14 +158,10 @@ export default async function Page(props: {
                 <div className="space-y-6 text-sm text-neutral-500">
                   <div
                     dangerouslySetInnerHTML={{
-                      __html: xss(
-                        description[lang as keyof typeof description]
-                      ),
+                      __html: xss(description[lang as keyof typeof description]),
                     }}
                   />
-                  <div>
-                    {description[lang as keyof typeof description]}
-                  </div>
+                  <div>{description[lang as keyof typeof description]}</div>
                 </div>
               </div>
             )}

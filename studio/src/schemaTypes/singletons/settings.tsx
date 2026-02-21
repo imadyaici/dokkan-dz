@@ -1,7 +1,7 @@
-import {CogIcon} from '@sanity/icons'
-import {defineArrayMember, defineField, defineType} from 'sanity'
+import { CogIcon } from '@sanity/icons';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 
-import * as demo from '../../lib/initialValues'
+import * as demo from '../../lib/initialValues';
 
 /**
  * Settings schema Singleton.  Singletons are single documents that are displayed not in a collection, handy for things like site settings and other global configurations.
@@ -133,13 +133,13 @@ export const settings = defineType({
           name: 'fr',
           type: 'array',
           title: 'French',
-          of: [{type: 'string'}],
+          of: [{ type: 'string' }],
         },
         {
           name: 'ar',
           type: 'array',
           title: 'Arabic',
-          of: [{type: 'string'}],
+          of: [{ type: 'string' }],
         },
       ],
     }),
@@ -174,10 +174,10 @@ export const settings = defineType({
           validation: (rule) => {
             return rule.custom((alt, context) => {
               if ((context.document?.ogImage as any)?.asset?._ref && (!alt?.fr || !alt?.ar)) {
-                return 'Both French and Arabic alternative text are required when an image is uploaded'
+                return 'Both French and Arabic alternative text are required when an image is uploaded';
               }
-              return true
-            })
+              return true;
+            });
           },
         }),
         defineField({
@@ -211,15 +211,15 @@ export const settings = defineType({
               type: 'string',
               options: {
                 list: [
-                  {title: 'Facebook', value: 'facebook'},
-                  {title: 'Twitter', value: 'twitter'},
-                  {title: 'Instagram', value: 'instagram'},
-                  {title: 'LinkedIn', value: 'linkedin'},
-                  {title: 'YouTube', value: 'youtube'},
+                  { title: 'Facebook', value: 'facebook' },
+                  { title: 'Twitter', value: 'twitter' },
+                  { title: 'Instagram', value: 'instagram' },
+                  { title: 'LinkedIn', value: 'linkedin' },
+                  { title: 'YouTube', value: 'youtube' },
                 ],
               },
             },
-            {name: 'url', title: 'URL', type: 'url'},
+            { name: 'url', title: 'URL', type: 'url' },
           ],
         },
       ],
@@ -289,7 +289,7 @@ export const settings = defineType({
     prepare() {
       return {
         title: 'Settings',
-      }
+      };
     },
   },
-})
+});

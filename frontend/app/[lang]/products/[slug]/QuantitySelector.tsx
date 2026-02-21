@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { OrderFormModal } from "@/ui/components/OrderFormModal";
-import { ProductQueryResult } from "@/sanity.types";
-import { TrustBadges } from "@/ui/components/TrustBadges";
-import { useCurrentLang } from "@/hooks/useCurrentLang";
-import * as fpixel from "@/utils/fpixel";
+import { useEffect, useRef, useState } from 'react';
+
+import { useCurrentLang } from '@/hooks/useCurrentLang';
+import { type ProductQueryResult } from '@/sanity.types';
+import { OrderFormModal } from '@/ui/components/OrderFormModal';
+import { TrustBadges } from '@/ui/components/TrustBadges';
+import * as fpixel from '@/utils/fpixel';
 
 type Props = {
   product: ProductQueryResult;
@@ -42,7 +43,9 @@ export function QuantitySelector({ product, translations }: Props) {
   const handleAddClick = () => {
     fpixel.event('AddToCart', {
       content_ids: [product?._id],
-      content_name: product?.name?.[Object.keys(product?.name || {})[0] as keyof typeof product.name] || 'Product',
+      content_name:
+        product?.name?.[Object.keys(product?.name || {})[0] as keyof typeof product.name] ||
+        'Product',
       content_type: 'product',
       value: product?.price,
       currency: 'DZD',
@@ -55,7 +58,7 @@ export function QuantitySelector({ product, translations }: Props) {
       ([entry]) => {
         setIsStickyVisible(!entry.isIntersecting);
       },
-      { threshold: 0 }
+      { threshold: 0 },
     );
 
     if (mainButtonRef.current) {
@@ -77,9 +80,7 @@ export function QuantitySelector({ product, translations }: Props) {
           >
             &minus;
           </button>
-          <span className="w-1/3 select-none text-center text-lg font-medium">
-            {quantity}
-          </span>
+          <span className="w-1/3 select-none text-center text-lg font-medium">{quantity}</span>
           <button
             type="button"
             onClick={increment}
@@ -101,7 +102,9 @@ export function QuantitySelector({ product, translations }: Props) {
       </button>
 
       {/* Sticky Mobile CTA */}
-      <div className={`fixed bottom-0 left-0 right-0 z-40 bg-white p-4 shadow-[0_-5px_15px_rgba(0,0,0,0.1)] transition-transform duration-300 sm:hidden ${isStickyVisible ? 'translate-y-0' : 'translate-y-full'}`}>
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-40 bg-white p-4 shadow-[0_-5px_15px_rgba(0,0,0,0.1)] transition-transform duration-300 sm:hidden ${isStickyVisible ? 'translate-y-0' : 'translate-y-full'}`}
+      >
         <button
           type="button"
           onClick={handleAddClick}

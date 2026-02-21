@@ -1,14 +1,16 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter, Noto_Sans_Arabic } from "next/font/google";
-import { Toaster } from "sonner";
-import { sanityFetch, SanityLive } from "@/sanity/lib/live";
-import { settingsQuery } from "@/sanity/lib/queries";
-import { resolveOpenGraphImage } from "@/sanity/lib/utils";
-import { handleError } from "@/utils/client-utils";
-import { Header } from "@/ui/components/Header";
-import { Footer } from "@/ui/components/Footer";
-import { FacebookPixel } from "@/ui/components/FacebookPixel";
+import './globals.css';
+import { Inter, Noto_Sans_Arabic } from 'next/font/google';
+import { Toaster } from 'sonner';
+
+import type { Metadata } from 'next';
+
+import { sanityFetch, SanityLive } from '@/sanity/lib/live';
+import { settingsQuery } from '@/sanity/lib/queries';
+import { resolveOpenGraphImage } from '@/sanity/lib/utils';
+import { FacebookPixel } from '@/ui/components/FacebookPixel';
+import { Footer } from '@/ui/components/Footer';
+import { Header } from '@/ui/components/Header';
+import { handleError } from '@/utils/client-utils';
 
 /**
  * Generate metadata for the page.
@@ -30,7 +32,9 @@ export async function generateMetadata({
   const description = settings?.description?.[lang as keyof typeof settings.description] || '';
   const keywords = settings?.keywords?.[lang as keyof typeof settings.keywords] || [];
   const ogImage = resolveOpenGraphImage(settings?.ogImage);
-  const metadataBase = settings?.ogImage?.metadataBase ? new URL(settings.ogImage.metadataBase) : undefined;
+  const metadataBase = settings?.ogImage?.metadataBase
+    ? new URL(settings.ogImage.metadataBase)
+    : undefined;
 
   return {
     metadataBase,
@@ -44,12 +48,16 @@ export async function generateMetadata({
     openGraph: {
       title,
       description: description,
-      images: ogImage ? [ogImage] : settings?.logo ? [
-        {
-          url: settings.logo,
-          alt: settings.logoAlt || 'Logo',
-        }
-      ] : [],
+      images: ogImage
+        ? [ogImage]
+        : settings?.logo
+          ? [
+              {
+                url: settings.logo,
+                alt: settings.logoAlt || 'Logo',
+              },
+            ]
+          : [],
       locale: lang,
       type: 'website',
       siteName: title,
@@ -63,8 +71,8 @@ export async function generateMetadata({
     alternates: {
       canonical: settings?.url,
       languages: {
-        'fr': '/fr',
-        'ar': '/ar',
+        fr: '/fr',
+        ar: '/ar',
       },
     },
   };
@@ -88,7 +96,9 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} dir={isRTL ? 'rtl' : 'ltr'} className="min-h-dvh">
-      <body className={`${isRTL ? notoSansArabic.className : inter.className} ${notoSansArabic.variable} min-h-dvh`}>
+      <body
+        className={`${isRTL ? notoSansArabic.className : inter.className} ${notoSansArabic.variable} min-h-dvh`}
+      >
         <FacebookPixel />
         <Toaster richColors />
         <SanityLive onError={handleError} />

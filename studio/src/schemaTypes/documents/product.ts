@@ -1,5 +1,5 @@
-import { BasketIcon } from '@sanity/icons'
-import { defineField, defineType } from 'sanity'
+import { BasketIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
 
 export const product = defineType({
   name: 'product',
@@ -17,16 +17,16 @@ export const product = defineType({
           name: 'fr',
           type: 'string',
           title: 'French',
-          validation: Rule => Rule.required()
+          validation: (Rule) => Rule.required(),
         },
         {
           name: 'ar',
           type: 'string',
           title: 'Arabic',
-          validation: Rule => Rule.required()
+          validation: (Rule) => Rule.required(),
         },
       ],
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -38,48 +38,50 @@ export const product = defineType({
         maxLength: 96,
         isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'object',
       fields: [
-        { 
-          name: 'fr', 
-          type: 'text', 
-          title: 'French', 
-          validation: Rule => Rule.required() 
+        {
+          name: 'fr',
+          type: 'text',
+          title: 'French',
+          validation: (Rule) => Rule.required(),
         },
-        { 
-          name: 'ar', 
-          type: 'text', 
-          title: 'Arabic', 
-          validation: Rule => Rule.required() 
+        {
+          name: 'ar',
+          type: 'text',
+          title: 'Arabic',
+          validation: (Rule) => Rule.required(),
         },
       ],
-      validation: Rule => Rule.required(),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'price',
       title: 'Price',
       type: 'number',
-      validation: Rule => Rule.required().min(0),
+      validation: (Rule) => Rule.required().min(0),
     }),
     defineField({
       name: 'images',
       title: 'Images',
       type: 'array',
-      validation: Rule => Rule.required(),
-      of: [{
-        type: 'image',
-        options: {
-          hotspot: true,
-          aiAssist: {
-            imageDescriptionField: 'alt',
+      validation: (Rule) => Rule.required(),
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+            aiAssist: {
+              imageDescriptionField: 'alt',
+            },
           },
         },
-      }],
+      ],
     }),
   ],
   preview: {
@@ -90,7 +92,7 @@ export const product = defineType({
     prepare({ titleFr, titleAr }) {
       return {
         title: `${titleFr} - ${titleAr}`,
-      }
-    }
+      };
+    },
   },
-})
+});
