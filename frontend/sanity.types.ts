@@ -12,7 +12,7 @@
  * ---------------------------------------------------------------------------------
  */
 
-// Source: ../studio/schema.json
+// Source: schema.json
 export type CallToAction = {
   _type: 'callToAction';
   heading: string;
@@ -463,10 +463,8 @@ export type AllSanitySchemaTypes =
   | Geopoint
   | Slug
   | SanityAssetSourceData;
-
 export declare const internalGroqTypeReferenceTo: unique symbol;
-
-// Source: sanity/lib/queries.ts
+// Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0] {    title,    tagline,    url,    "logo": logo.asset->url,    "logoAlt": logo.alt,    description,    keywords,    ogImage {      asset->,      alt,      metadataBase    },    robotsTxt,    socialLinks[] {      platform,      url    },    contactInfo  }
 export type SettingsQueryResult = {
@@ -537,8 +535,6 @@ export type SettingsQueryResult = {
     };
   } | null;
 } | null;
-
-// Source: sanity/lib/queries.ts
 // Variable: productQuery
 // Query: *[_type == "product" && slug.current == $slug][0] {    _id,    name,    "slug": slug.current,    description,    price,    images[]{      asset->{        _id,        url,      }    },    _updatedAt,  }
 export type ProductQueryResult = {
@@ -561,8 +557,6 @@ export type ProductQueryResult = {
   }>;
   _updatedAt: string;
 } | null;
-
-// Source: sanity/lib/queries.ts
 // Variable: allProductsQuery
 // Query: *[_type == "product" && defined(slug.current)] | order(name asc) {    _id,    name,    "slug": slug.current,    description,    price,    images[]{      asset->{        _id,        url,      }    },    _updatedAt  }
 export type AllProductsQueryResult = Array<{
