@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+dist/
+.sanity/
+
+# Generated files
+frontend/sanity.types.ts
+studio/schema.json
+package-lock.json
+
+# Coverage
+coverage/
