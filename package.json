@@ -18,6 +18,7 @@
     "test": "npm run test --workspace=frontend --if-present",
     "test:coverage": "npm run test:coverage --workspace=frontend --if-present",
     "import-sample-data": "cd studio && sanity dataset import sample-data.tar.gz --replace",
+    "validate": "npm run lint && npm run type-check && npm run test",
     "prepare": "test -n \"$CI\" || husky"
   },
   "keywords": [
