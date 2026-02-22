@@ -20,7 +20,14 @@ const compat = new FlatCompat({
 const config = [
   // Global ignores (replaces .eslintignore)
   {
-    ignores: ['node_modules/**', '.next/**', 'sanity.types.ts', 'next-env.d.ts', 'coverage/**'],
+    ignores: [
+      'node_modules/**',
+      '.next/**',
+      'sanity.types.ts',
+      'next-env.d.ts',
+      'coverage/**',
+      'playwright-report/**',
+    ],
   },
 
   // Extend eslint-config-next (includes React, JSX, import, and core-web-vitals)

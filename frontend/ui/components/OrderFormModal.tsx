@@ -152,6 +152,7 @@ export const OrderFormModal = ({ onClose, product, quantity, translations, messa
       <DialogBackdrop className="fixed inset-0 bg-black/30" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel
+          data-testid="OrderFormModal"
           className={`min-w-screen md:min-w-md max-w-lg rounded-lg bg-white p-8 shadow-lg ${isRTL ? 'text-right' : ''}`}
         >
           <DialogTitle className="mb-6 text-xl font-semibold">{translations.title}</DialogTitle>
@@ -267,6 +268,7 @@ export const OrderFormModal = ({ onClose, product, quantity, translations, messa
                       >
                         <div className="relative">
                           <ComboboxInput
+                            data-testid="WilayaInput"
                             className="mt-1 block w-full rounded-md border-neutral-300 px-2 py-2 shadow-sm focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 disabled:bg-gray-100 placeholder:text-neutral-400"
                             displayValue={(val: number | string) => {
                               const selected = wilayas.find((w) => w.code === val);
@@ -327,6 +329,7 @@ export const OrderFormModal = ({ onClose, product, quantity, translations, messa
                       >
                         <div className="relative">
                           <ComboboxInput
+                            data-testid="CityInput"
                             className="mt-1 block w-full rounded-md border-neutral-300 px-2 py-2 shadow-sm focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 disabled:bg-gray-100 placeholder:text-neutral-400"
                             displayValue={(val: any) => {
                               const selected = communes.find((c) => c.id === val);

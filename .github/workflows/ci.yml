@@ -155,3 +155,42 @@ jobs:
           name: coverage-report
           path: frontend/coverage/
           retention-days: 7
+
+  # -------------------------------------------------------
+  # E2E — Playwright end-to-end tests
+  # -------------------------------------------------------
+  e2e:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    # Run after unit tests and typecheck to save time/resources if they fail
+    needs: [lint, typecheck, test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ${{ env.NODE_VERSION_FILE }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        run: npm run test:e2e --workspace=frontend
+        env:
+          # Use mock/testing env vars if needed
+          CI: true
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
+          retention-days: 7
