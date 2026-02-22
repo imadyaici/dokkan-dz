@@ -30,6 +30,11 @@ const config = [
       next: {
         rootDir: 'frontend/',
       },
+      'import/resolver': {
+        typescript: {
+          project: `${__dirname}/tsconfig.json`,
+        },
+      },
     },
   }),
 

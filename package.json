@@ -10,6 +10,8 @@
     "dev:studio": "npm run dev --workspace=studio",
     "lint": "npm run lint --workspaces --if-present",
     "lint:fix": "npm run lint:fix --workspaces --if-present",
+    "lint-staged:frontend": "cd frontend && eslint --fix",
+    "lint-staged:studio": "cd studio && eslint --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "type-check": "npm run type-check --workspaces --if-present",
@@ -36,11 +38,11 @@
   ],
   "lint-staged": {
     "frontend/**/*.{ts,tsx,js,jsx,mjs}": [
-      "eslint -c frontend/eslint.config.mjs --fix",
+      "npm run lint-staged:frontend --",
       "prettier --write"
     ],
     "studio/**/*.{ts,tsx,js,jsx,mjs}": [
-      "eslint -c studio/eslint.config.mjs --fix",
+      "npm run lint-staged:studio --",
       "prettier --write"
     ],
     "*.{json,md,css,yml,yaml}": [
