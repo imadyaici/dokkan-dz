@@ -2,8 +2,6 @@ import './globals.css';
 import { Inter, Noto_Sans_Arabic } from 'next/font/google';
 import { Toaster } from 'sonner';
 
-import type { Metadata } from 'next';
-
 import { sanityFetch, SanityLive } from '@/sanity/lib/live';
 import { settingsQuery } from '@/sanity/lib/queries';
 import { resolveOpenGraphImage } from '@/sanity/lib/utils';
@@ -11,6 +9,8 @@ import { FacebookPixel } from '@/ui/components/FacebookPixel';
 import { Footer } from '@/ui/components/Footer';
 import { Header } from '@/ui/components/Header';
 import { handleError } from '@/utils/client-utils';
+
+import type { Metadata } from 'next';
 
 /**
  * Generate metadata for the page.

@@ -1,9 +1,9 @@
+import { sanityFetch } from '@/sanity/lib/live';
+import { settingsQuery } from '@/sanity/lib/queries';
+
 import { LocaleSelector } from './LocaleSelector';
 import { Logo } from './Logo';
 import { Nav } from './nav/Nav';
-
-import { sanityFetch } from '@/sanity/lib/live';
-import { settingsQuery } from '@/sanity/lib/queries';
 
 export async function Header(props: { lang: string }) {
   const { data: settings } = await sanityFetch({

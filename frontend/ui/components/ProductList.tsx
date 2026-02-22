@@ -1,6 +1,6 @@
-import { ProductElement } from './ProductElement';
-
 import { type AllProductsQueryResult } from '@/sanity.types';
+
+import { ProductElement } from './ProductElement';
 
 export const ProductList = ({ products }: { products: AllProductsQueryResult }) => {
   return (

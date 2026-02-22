@@ -2,15 +2,15 @@ import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import xss from 'xss';
 
-import { QuantitySelector } from './QuantitySelector';
-import { TrackViewContent } from './TrackViewContent';
-
 import { i18n } from '@/i18n-config';
 import { sanityFetch } from '@/sanity/lib/live';
 import { allProductsQuery, productQuery, settingsQuery } from '@/sanity/lib/queries';
 import { AvailabilityMessage } from '@/ui/components/AvailabilityMessage';
 import { Gallery } from '@/ui/components/Gallery';
 import { formatMoney } from '@/utils/utils';
+
+import { QuantitySelector } from './QuantitySelector';
+import { TrackViewContent } from './TrackViewContent';
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string; lang: string }>;
