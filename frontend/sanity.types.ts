@@ -582,7 +582,6 @@ export type AllProductsQueryResult = Array<{
 
 // Query TypeMap
 import '@sanity/client';
-
 declare module '@sanity/client' {
   interface SanityQueries {
     '\n  *[_type == "settings"][0] {\n    title,\n    tagline,\n    url,\n    "logo": logo.asset->url,\n    "logoAlt": logo.alt,\n    description,\n    keywords,\n    ogImage {\n      asset->,\n      alt,\n      metadataBase\n    },\n    robotsTxt,\n    socialLinks[] {\n      platform,\n      url\n    },\n    contactInfo\n  }\n': SettingsQueryResult;
