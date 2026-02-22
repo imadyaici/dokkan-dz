@@ -59,7 +59,7 @@ export async function generateMetadata(props: {
         ? {
             images: [
               {
-                url: product.images[0].asset?.url || '',
+                url: product.images[0]?.asset?.url || '',
                 alt: productName,
               },
             ],

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
 
 import { useCurrentLang } from '@/hooks/useCurrentLang';
 import { type ProductQueryResult } from '@/sanity.types';

@@ -16,7 +16,7 @@ export function Gallery({
     <div className="flex flex-col items-center">
       <div className="relative aspect-square w-full max-w-[300px] sm:max-w-xl bg-white border border-blue-600 rounded-lg overflow-hidden flex items-center justify-center">
         <Image
-          src={images[selected].asset?.url || ''}
+          src={images[selected]?.asset?.url || ''}
           alt={'Product image'}
           fill
           className="object-contain"

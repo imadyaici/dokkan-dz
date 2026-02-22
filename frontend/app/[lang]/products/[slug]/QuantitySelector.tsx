@@ -56,7 +56,7 @@ export function QuantitySelector({ product, translations }: Props) {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsStickyVisible(!entry.isIntersecting);
+        setIsStickyVisible(!entry?.isIntersecting);
       },
       { threshold: 0 },
     );

@@ -217,15 +217,7 @@ export const OrderFormModal = ({ onClose, product, quantity, translations, messa
               }
             }}
           >
-            {({
-              values,
-              handleChange,
-              setFieldValue,
-              errors,
-              touched,
-              handleSubmit,
-              isSubmitting,
-            }) => (
+            {({ values, handleChange, setFieldValue, handleSubmit, isSubmitting }) => (
               <form onSubmit={handleSubmit}>
                 <Fieldset className="space-y-4" disabled={isSubmitting}>
                   <div>
